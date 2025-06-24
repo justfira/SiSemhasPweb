@@ -1,0 +1,467 @@
+/* General Styling & Reset */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'); /* Contoh Font, bisa diganti */
+
+:root {
+    --primary-bg: #E0E0E0; /* Warna latar belakang utama */
+    --header-bg: #d2691e; /* Gradient Oranye */
+    --text-light: #fff;
+    --text-dark: #333;
+    --sidebar-bg: #F0F0F0; /* Latar belakang sidebar */
+    --sidebar-link-active-bg: #E0E0E0; /* Latar belakang link aktif di sidebar */
+    --card-bg: #fff;
+    --border-color: #ddd;
+    --button-bg: #FF8C00; /* Oranye untuk tombol Update Role */
+    --button-text: #fff;
+    --table-header-bg: #F0F0F0; /* Latar belakang header tabel */
+    --table-border: #ccc;
+    --background-gradient-body: linear-gradient(135deg, #0b1a67 0%, #15768a 100%); /* Warna background lembut */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* HTML dan BODY harus 100% tinggi */
+    margin: 0;
+    padding: 0;
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding-top: 30px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--background-gradient-body); /* Latar belakang body */
+}
+
+/* KONTEN UTAMA APLIKASI (menggantikan .container) */
+/* Asumsi #app adalah div paling luar yang membungkus header, sidebar, dan konten utama */
+#app {
+    display: flex;
+    flex-direction: column; /* Header di atas, main-content di bawah */
+    min-height: 100vh; /* Memastikan #app mengambil tinggi penuh viewport */
+}
+
+/* Header Styling */
+.header {
+    background: linear-gradient(135deg, #d2691e, #d2691e);
+    color: var(--text-light);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Pastikan header tidak mengecil */
+    height: 60px; /* Lebar header, agar height: calc() di sidebar tetap konsisten */
+
+    position: fixed; /* <--- NEW: Buat header fixed */
+    top: 0;          /* <--- NEW: Tempel di paling atas */
+    left: 0;         /* <--- NEW: Tempel di paling kiri */
+    width: 100%;     /* <--- NEW: Buat lebar penuh */
+    z-index: 1000;   /* <--- NEW: Pastikan di atas konten lain saat scroll */
+}
+
+.header-left {
+    display: flex;
+    align-items: center; /* <--- Ini seharusnya sudah membuat item di dalamnya rata tengah secara vertikal */
+}
+
+.header-left span {
+    font-size: 1.2em;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.header-right .user-icon {
+    font-size: 1.8em;
+    cursor: pointer;
+}
+
+.header-left img {
+    width: 40px;
+    height: 40px;
+}
+
+.mobile-sidebar-toggle {
+    display: none; /* Sembunyikan di desktop, akan muncul di mobile */
+    font-size: 1.5em;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+
+/* Main Content Area - MENAMPUNG SIDEBAR DAN KONTEN UTAMA */
+.main-content {
+    display: flex; /* Mengatur sidebar dan content-area secara horizontal */
+    flex-grow: 1; /* Memastikan main-content mengisi sisa ruang vertikal yang tersedia */
+    /* Di desktop, sidebar akan punya lebar, jadi konten utama harus ada margin-left */
+}
+
+/* Sidebar Styling - DESKTOP (DEFAULT) */
+.sidebar {
+    background-color: var(--sidebar-bg);
+    width: 250px; /* Lebar sidebar di desktop */
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* Penting: Mencegah sidebar mengecil */
+
+    position: fixed; /* <--- NEW: Buat sidebar fixed */
+    top: 60px;       /* <--- NEW: Mulai tepat di bawah header yang fixed */
+    left: 0;         /* <--- NEW: Tempel di paling kiri */
+    height: calc(100vh - 60px); /* <--- NEW: Tinggi penuh viewport dikurangi tinggi header */
+    z-index: 990;    /* <--- NEW: Di bawah header, tapi di atas konten utama */
+
+    /* ATURAN UNTUK MEMBUAT SIDEBAR MEMANJANG DI DESKTOP */
+    /* Karena .main-content adalah flex dan stretch secara default,
+       sidebar ini akan memanjang jika tidak ada batasan height: auto; */
+    /* HAPUS height: auto; dari sini */
+    /* TIDAK ADA position: fixed; top; left; z-index; transform; DI SINI */
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li a {
+    display: block;
+    padding: 12px 25px;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar-menu li a:hover {
+    background-color: var(--sidebar-link-active-bg);
+}
+
+.sidebar-menu li a.active {
+    background-color: var(--sidebar-link-active-bg);
+    font-weight: bold;
+    border-left: 5px solid var(--header-bg);
+    padding-left: 20px;
+}
+
+/* Content Area (Right Side) */
+.content-area {
+    flex-grow: 1; /* Mengisi sisa ruang horizontal */
+    padding: 25px;
+    background: var(--background-gradient-body); /* Latar belakang konten utama */
+    margin-left: 250px;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 20px 25px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--table-header-bg);
+}
+
+.card-header h2 {
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+.role-filter label {
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.role-filter select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 0.95em;
+    cursor: pointer;
+}
+
+.card-body {
+    padding: 0 25px;
+    overflow-x: auto;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.user-table th,
+.user-table td {
+    border: 1px solid var(--table-border);
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.user-table thead th {
+    background-color: var(--table-header-bg);
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.user-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.user-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.user-table td select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.card-footer {
+    padding: 15px 25px;
+    border-top: 1px solid var(--border-color);
+    text-align: right;
+    background-color: var(--table-header-bg);
+}
+
+.btn-update {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger {
+    background-color: #ff0000;
+    color: var(--button-text);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-update:hover {
+    background-color: #e67e00;
+}
+
+/* Styling for action buttons in tables (Terima/Tolak, Konfirmasi/Batal) */
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.btn-action {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85em;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.btn-accept, .btn-confirm {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-accept:hover, .btn-confirm:hover {
+    background-color: #218838;
+}
+
+.btn-reject, .btn-cancel {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-reject:hover, .btn-cancel:hover {
+    background-color: #c82333;
+}
+
+/* Styling for Panduan Seminar Hasil page */
+.panduan-upload-section {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.panduan-card {
+    background-color: #f8f8f8;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 45%;
+    min-width: 280px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.panduan-card h3 {
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.panduan-image-container {
+    border: 1px solid #eee;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.panduan-thumbnail {
+    max-width: 400px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
+.upload-area {
+    border: 2px dashed var(--border-color); /* Gunakan variabel */
+    padding: 30px;
+    border-radius: 8px;
+    background-color: var(--table-header-bg); /* Gunakan variabel, misalnya sedikit berbeda */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100%; /* Pastikan mengisi lebar card */
+    display: flex; /* Tambahkan: Untuk mengatur ikon, tombol, dan teks file */
+    flex-direction: column; /* Tambahkan: Susun vertikal */
+    align-items: center; /* Tambahkan: Rata tengah horizontal di dalam area upload */
+    gap: 15px; /* Tambahkan: Jarak antar elemen di upload area */
+    cursor: pointer; /* Tambahkan: Menandakan area bisa diklik */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+}
+
+.upload-area:hover {
+    background-color: #f0f0f0; /* Efek hover */
+    border-color: var(--button-bg); /* Border berubah warna saat hover */
+}
+
+.upload-icon {
+    font-size: 3.5em; /* Sedikit lebih besar */
+    color: #aaa;
+    margin-bottom: 5px; /* Kurangi margin bawah */
+    display: block;
+}
+
+.file-name-display { /* <--- KELAS BARU UNTUK SPAN NAMA FILE */
+    font-size: 0.95em;
+    color: var(--text-dark);
+    margin-top: 5px; /* Jarak dari tombol pilih file */
+    text-align: center;
+    word-break: break-all; /* Agar nama file panjang tidak keluar batas */
+}
+
+.btn-upload-file { /* Tombol "Pilih File PDF" */
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin-top: 15px; /* Hapus margin top jika sudah ada gap */
+}
+
+.btn-upload-file:hover {
+    background-color: #0056b3;
+}
+
+/* Tombol "Unggah Panduan" */
+.panduan-card .btn-update { /* Lebih spesifik agar tidak bentrok dengan btn-update lain */
+    margin-top: auto; /* Tambahkan: Dorong tombol ke bawah card jika ada ruang */
+    /* Atau margin-top: 20px; jika ingin jarak tetap */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Main Content Area */
+    .main-content {
+        flex-direction: column; /* Kolom untuk stack item vertikal */
+        margin-left: 0; /* Hapus margin kiri di mobile */
+    }
+
+    /* Sidebar Styling (Mobile Fixed Slide-in) */
+    .sidebar {
+        width: 80%; /* Lebar sidebar di mobile */
+        height: calc(100vh - 60px); /* TINGGI PENUH VIEWPORT DIKURANGI TINGGI HEADER (60px) */
+        position: fixed; /* Membuat sidebar tetap di tempatnya saat di-scroll */
+        top: 60px;
+        left: 0;
+        z-index: 1000; /* Pastikan di atas konten lain */
+        transform: translateX(-100%); /* Sembunyikan sidebar di luar layar */
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Tambah shadow agar terlihat saat slide in */
+    }
+
+    .sidebar.active {
+        transform: translateX(0); /* Tampilkan sidebar */
+    }
+
+    /* Header Styling (Mobile) */
+    .mobile-sidebar-toggle {
+        display: block; /* Tampilkan ikon toggle di header */
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+    }
+
+    /* Content Area (Mobile) */
+    .content-area {
+        margin-top: 0;
+        padding: 15px;
+    }
+
+    /* Card Header (Mobile) */
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    /* Role Filter (Mobile) */
+    .role-filter {
+        margin-top: 15px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .role-filter select {
+        flex: 1;
+    }
+
+    /* Panduan Seminar Hasil (Mobile) */
+    
+}

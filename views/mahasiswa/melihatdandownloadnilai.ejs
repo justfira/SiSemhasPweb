@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISemhas - Universitas Andalas</title>
+    <link rel="stylesheet" href="/mahasiswa/css/melihatdandownloadnilai.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+</head>
+<body>
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas">
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    </header>
+
+    <nav class="nav-tabs">
+        <div class="nav-left">
+            <a href="/dashboard/" class="nav-tab">Dashboard</a>
+            <a href="/daftar/" class="nav-tab">Pendaftaran</a>
+            <a href="/riwayatseminar" class="nav-tab">Riwayat Semhas</a>
+        </div>
+    </nav>
+    
+    <div class="breadcrumb">
+        <span>Penilaian Seminar Akhir</span>
+    </div>
+
+    <main class="main-content">
+        <div class="form-info">
+            <h3>Nama: <%= nama_lengkap %></h3>
+            <h3>NIM: <%= user.userId %></h3>
+            <h3>Judul Tugas Akhir: <%= judul %></h3>
+        </div>
+
+        <div class="print-info-block">
+            <p class="print-info-item">Nama Dosen Penguji: <%= nama_dosen %></p>
+            <p class="signature-line">NIP. <span id="printDosenSignatureId"><%= nip_dosen %></span></p>
+        </div>
+
+        <table class="nilai-table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kriteria</th>
+                    <th>Bobot</th>
+                </tr>
+                </thead>
+            <tbody id="nilai-body"> 
+                <% if (kriteriaPenilaian && kriteriaPenilaian.length > 0) { %>
+                    <% kriteriaPenilaian.forEach((item, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= item.label %></td>
+                            <td><%= item.nilai %></td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="3" style="text-align: center;">Belum ada kriteria penilaian tersedia.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            </div>
+
+        <div class="status-section">
+            <div class="form-group">
+                <label>Status: <%= status_semhas %></label>
+            </div>
+
+            <div class="form-group">
+                <label>Komentar: <%= komentar %></label>
+            </div>
+        </div>
+
+        <div class="signature-area">
+            <p class="signature-line">Padang, <%= new Date().toLocaleDateString('id-ID') %></p>
+            <p class="signature-line">Dosen Penguji,</p>
+            <br><br><br>
+            <p class="signature-line"><span id="printDosenSignatureName"><%= nama_dosen %></span></p>
+            <p class="signature-line">NIP. <span id="printDosenSignatureId"><%= nip_dosen %></span></p>
+        </div>
+
+        <div class="button-wrapper">
+            <button class="btn-submit" onclick="downloadPDF()">Download PDF</button>
+        </div>
+    </main>
+    
+    <p id="tanggal-cetak"></p>
+    <script src="/mahasiswa/js/melihatdandownloadnilai.js"></script>
+</body>
+</html>

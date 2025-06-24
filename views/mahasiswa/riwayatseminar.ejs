@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISemhas - Universitas Andalas</title>
+    <link rel="stylesheet" href="/mahasiswa/CSS/riwayatseminar.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas">
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="nav-left">
+            <a href="/dashboard/" class="nav-tab">Dashboard</a>
+            <a href="/daftar/" class="nav-tab">Pendaftaran</a>
+            <a href="/riwayatseminar" class="nav-tab active">Riwayat Semhas</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Loading state while fetching data -->
+        <div id="loadingState" class="loading <%= emptyState ? 'show' : 'hide' %>">
+            Memuat riwayat semhas...
+        </div>
+
+        <!-- List of research items -->
+        <div id="researchList" class="research-list <%= emptyState ? 'hide' : 'show' %>">
+            <% if (!emptyState) { %>
+                <ul>
+                    <% riwayat.forEach(function(item) { %>
+                        <li class="research-item">
+                            <div class="research-title">
+                                <%= item.judul %>
+                            </div>
+                            <!-- Mengarahkan ke /detailRiwayat/:id dengan ID seminar -->
+                            <a href="/detailRiwayat/<%= item.id_pendaftaran %>" class="check-button">Check Riwayat</a>
+                            </li>
+                    <% }); %>
+                </ul>
+            <% } %>
+        </div>
+
+
+        <!-- Empty state message if there is no data -->
+        <div id="emptyState" class="empty-state <%= emptyState ? 'show' : 'hide' %>">
+            <h3>Belum Ada Riwayat Semhas</h3>
+            <p>Anda belum memiliki riwayat seminar hasil. Silakan lakukan pendaftaran seminar hasil terlebih dahulu.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+:root {
+    --card-bg: #ffffff;
+    --primary-color: #D2691E; /* Oranye gelap untuk header/highlight */
+    --secondary-color: #f97316; /* Oranye cerah untuk icon/link hover */
+    --border-color: #ddd;
+    --text-color-light: #555;
+    --text-color-dark: #333;
+    --background-gradient-body: linear-gradient(135deg, #fff5f5 0%, #fef0e7 100%); /* Warna background lembut */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-gradient-body); /* Gunakan variabel */
+    min-height: 100vh;
+    color: var(--text-color-dark);
+}
+
+.header {
+    background-color: #D2691E;
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 15px;
+}
+
+.header-title {
+    color: white;
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+}
+
+
+/* Navigation */
+.top-nav {
+    background-color: #fff;
+    padding: 0 40px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.top-nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid #D1D5DB; 
+}
+
+.top-nav a {
+    display: block;
+    padding: 15px 20px;
+    margin-top: 2px;
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    border: 2px solid transparent;
+    border-bottom: none;
+    position: relative;
+}
+
+.top-nav a:not(.active) {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+}
+
+.top-nav a:not(.active):hover {
+    color: #D2691E;
+}
+
+.top-nav a.active {
+    background-color: #D2691E;
+    color: white;
+    border-color: #D1D5DB;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-bottom: -2px; /* Kunci untuk efek 'tab' */
+}
+
+
+/* ========================================================== */
+/* KONTEN UTAMA                                               */
+/* ========================================================== */
+.content-container {
+    padding: 20px;
+    margin: 20px 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.content-header {
+    color: #2c3e50;
+    padding: 20px 25px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+}
+
+.table-container {
+    padding: 25px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table thead th {
+    background-color: #f7f7f7;
+    color: #333;
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 14px;
+    border-bottom: 2px solid #ddd;
+}
+
+.data-table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.no-data {
+    text-align: center;
+    padding: 50px;
+    color: #777;
+}
+
+.btn-upload {
+    background-color: #D2691E;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.btn-upload:hover {
+    opacity: 0.9;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: #888;
+    margin-top: 40px;
+}

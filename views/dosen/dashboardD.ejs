@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SISemhas</title>
+    <link rel="stylesheet" href="/dosen/css/dashboardD.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="/dosen/IMG/logo-unand.png" alt="Logo Universitas Andalas" class="logo">
+            <h1 class="header-title">SISemhas - Universitas Andalas</h1>
+        </div>
+    </header>
+
+    <nav class="top-nav">
+        <ul>
+            <li><a href="/dashboardD" class="active">Dashboard</a></li> 
+            <li><a href="/dosen/mahasiswaseminar">List Mahasiswa Seminar</a></li>
+            <li><a href="/dosen/penilaian">Penilaian</a></li>
+            <li><a href="/dosen/riwayatseminar">Riwayat Seminar</a></li>
+            <li><a href="/dosen/schedule">Upload Jadwal</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <aside class="profile-card">
+            <h2>BIODATA DIRI</h2>
+            <hr>
+            <div class="profile-info">
+                <div class="info-item">
+                    <span class="material-symbols-outlined icon">badge</span>
+                    <div class="info-text">
+                        <strong>NIP</strong>
+                        <p><%= dosen ? dosen.userId : 'Tidak tersedia' %></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="material-symbols-outlined icon">person</span>
+                    <div class="info-text">
+                        <strong>Nama Lengkap</strong>
+                        <p><%= dosen ? dosen.nama_lengkap : 'Tidak tersedia' %></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="material-symbols-outlined icon">mail</span>
+                    <div class="info-text">
+                        <strong>Email</strong>
+                        <p><%= dosen ? dosen.email : 'Tidak tersedia' %></p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="schedule-section">
+            <div class="welcome-section">
+                <h2>Halo, <%= dosen ? dosen.nama_lengkap : 'Pengguna' %>!</h2>
+                <p>Berikut adalah jadwal Anda untuk hari ini.</p>
+            </div>
+            
+            <div class="calendar-and-notes-wrapper">
+                <div class="calendar-container">
+                    <div class="month-header" id="monthHeader"></div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <div class="calendar-day-header">S</div>
+                        <div class="calendar-day-header">M</div>
+                        <div class="calendar-day-header">T</div>
+                        <div class="calendar-day-header">W</div>
+                        <div class="calendar-day-header">T</div>
+                        <div class="calendar-day-header">F</div>
+                        <div class="calendar-day-header">S</div>
+                    </div>
+                </div>
+
+                <div class="daily-notes-card">
+                    <h3>Jadwal Tersedia Hari Ini (Shift)</h3>
+                    <div class="notes-list">
+                        <% 
+                        try {
+                            // Debug info (hapus setelah selesai)
+                            // console.log('Template - uploadedScheduleToday:', uploadedScheduleToday);
+                            
+                            if (typeof uploadedScheduleToday !== 'undefined' && uploadedScheduleToday !== null) {
+                                // Cek apakah ada setidaknya satu shift yang tersedia
+                                const hasAnySchedule = uploadedScheduleToday.shift1 || 
+                                                     uploadedScheduleToday.shift2 || 
+                                                     uploadedScheduleToday.shift3 || 
+                                                     uploadedScheduleToday.shift4;
+                        %>
+                            <div class="shift-schedule">
+                                <p class="shift-item">
+                                    <strong>Shift 1 (08:00-10:00):</strong> 
+                                    <span class="<%= uploadedScheduleToday.shift1 ? 'available' : 'unavailable' %>">
+                                        <%= uploadedScheduleToday.shift1 ? 'Tersedia' : 'Tidak Tersedia' %>
+                                    </span>
+                                </p>
+                                <p class="shift-item">
+                                    <strong>Shift 2 (10:00-12:00):</strong> 
+                                    <span class="<%= uploadedScheduleToday.shift2 ? 'available' : 'unavailable' %>">
+                                        <%= uploadedScheduleToday.shift2 ? 'Tersedia' : 'Tidak Tersedia' %>
+                                    </span>
+                                </p>
+                                <p class="shift-item">
+                                    <strong>Shift 3 (13:00-15:00):</strong> 
+                                    <span class="<%= uploadedScheduleToday.shift3 ? 'available' : 'unavailable' %>">
+                                        <%= uploadedScheduleToday.shift3 ? 'Tersedia' : 'Tidak Tersedia' %>
+                                    </span>
+                                </p>
+                                <p class="shift-item">
+                                    <strong>Shift 4 (15:00-17:00):</strong> 
+                                    <span class="<%= uploadedScheduleToday.shift4 ? 'available' : 'unavailable' %>">
+                                        <%= uploadedScheduleToday.shift4 ? 'Tersedia' : 'Tidak Tersedia' %>
+                                    </span>
+                                </p>
+                            </div>
+                            
+                            <% if (!hasAnySchedule) { %>
+                                <div class="no-schedule-message">
+                                    <p style="color: #666; font-style: italic;">
+                                        Tidak ada jadwal tersedia untuk hari ini. 
+                                        <a href="/dosen/schedule" style="color: #007bff;">Upload jadwal baru</a>
+                                    </p>
+                                </div>
+                            <% } %>
+                        <% 
+                            } else {
+                        %>
+                            <div class="no-schedule-message">
+                                <p style="color: #666;">
+                                    Anda tidak memiliki jadwal seminar untuk hari ini.
+                                </p>
+                                <p>
+                                    <a href="/dosen/schedule" style="color: #007bff; text-decoration: none;">
+                                        → Upload Jadwal untuk 1 Minggu Ke Depan
+                                    </a>
+                                </p>
+                            </div>
+                        <%
+                            }
+                        } catch (error) {
+                        %>
+                            <div class="error-message">
+                                <p style="color: red; background: #ffebee; padding: 10px; border-radius: 4px;">
+                                    ⚠️ Terjadi kesalahan saat memuat jadwal: <%= error.message %>
+                                </p>
+                                <p style="color: #666; font-size: 0.9em;">
+                                    Silakan refresh halaman atau hubungi administrator jika masalah berlanjut.
+                                </p>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/dosen/js/dashboardD.js"></script>
+    
+</body>
+</html>

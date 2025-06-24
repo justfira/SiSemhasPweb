@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pengelolaan Rubrik Nilai</title>
+        <rel="stylesheet" href="/stylesheets/output.css" />
+        <style>
+            @import url(https://fonts.googleapis.com/css2?family=Lato&display=swap);
+            @import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);
+            @import url(https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200);
+        </style>
+    </head>
+    <body>
+        <div id="webcrumbs">
+            <div class="w-full max-w-6xl mx-auto p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="flex items-center justify-between mb-8">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-800 mb-2">Pengelolaan Rubrik Nilai</h1>
+                            <p class="text-gray-600">Kelola rubrik dan bobot penilaian untuk standar yang konsisten</p>
+                        </div>
+                        <button
+                            class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 shadow-md"
+                        >
+                            <span class="material-symbols-outlined inline-block mr-2">add</span> Tambah Rubrik
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-md">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-blue-100 text-sm font-medium">Total Rubrik</p>
+                                    <p class="text-3xl font-bold">12</p>
+                                </div>
+                                <span class="material-symbols-outlined text-4xl text-blue-200">assessment</span>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-md">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-green-100 text-sm font-medium">Rubrik Aktif</p>
+                                    <p class="text-3xl font-bold">8</p>
+                                </div>
+                                <span class="material-symbols-outlined text-4xl text-green-200">check_circle</span>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-6 rounded-xl shadow-md">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-orange-100 text-sm font-medium">Perlu Review</p>
+                                    <p class="text-3xl font-bold">4</p>
+                                </div>
+                                <span class="material-symbols-outlined text-4xl text-orange-200">pending</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">Daftar Rubrik Penilaian</h2>
+                            <div class="space-y-4">
+                                <div
+                                    class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200"
+                                >
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h3 class="font-semibold text-gray-800">Presentasi Seminar</h3>
+                                        <span
+                                            class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium"
+                                            >Aktif</span
+                                        >
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-600">
+                                        <div>
+                                            <p><span class="font-medium">Bobot:</span> 40%</p>
+                                            <p><span class="font-medium">Kriteria:</span> 5</p>
+                                        </div>
+                                        <div>
+                                            <p><span class="font-medium">Terakhir diubah:</span> 15 Mar 2024</p>
+                                            <p><span class="font-medium">Digunakan:</span> 23 kali</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 mt-4">
+                                        <button
+                                            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm transition-colors duration-200"
+                                        >
+                                            <span class="material-symbols-outlined text-sm mr-1">edit</span> Edit
+                                        </button>
+                                        <button
+                                            class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm transition-colors duration-200"
+                                        >
+                                            <span class="material-symbols-outlined text-sm mr-1">visibility</span> Lihat
+                                        </button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200"
+                                >
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h3 class="font-semibold text-gray-800">Laporan Tugas Akhir</h3>
+                                        <span
+                                            class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium"
+                                            >Aktif</span
+                                        >
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-600">
+                                        <div>
+                                            <p><span class="font-medium">Bobot:</span> 35%</p>
+                                            <p><span class="font-medium">Kriteria:</span> 6</p>
+                                        </div>
+                                        <div>
+                                            <p><span class="font-medium">Terakhir diubah:</span> 10 Mar 2024</p>
+                                            <p><span class="font-medium">Digunakan:</span> 18 kali</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 mt-4">
+                                        <button
+                                            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm transition-colors duration-200"
+                                        >
+                                            <span class="material-symbols-outlined text-sm mr-1">edit</span> Edit
+                                        </button>
+                                        <button
+                                            class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm transition-colors duration-200"
+                                        >
+                                            <span class="material-symbols-outlined text-sm mr-1">visibility</span> Lihat
+                                        </button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200"
+                                >
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h3 class="font-semibold text-gray-800">Tanya Jawab</h3>
+                                        <span
+                                            class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-medium"
+                                            >Review</span
+                                        >
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-600">
+                                        <div>
+                                            <p><span class="font-medium">Bobot:</span> 25%</p>
+                                            <p><span class="font-medium">Kriteria:</span> 4</p>
+                                        </div>
+                                        <div>
+                                            <p><span class="font-medium">Terakhir diubah:</span> 5 Mar 2024</p>
+                                            <p><span class="font-medium">Digunakan:</span> 12 kali</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 mt-4">
+                                        <button
+                                            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm transition-colors duration-200"
+                                        >
+                                            <span class="material-symbols-outlined text-sm mr-1">edit</span> Edit
+                                        </button>
+                                        <button
+                                            class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm transition-colors duration-200"
+                                        >
+                                            <span class="material-symbols-outlined text-sm mr-1">visibility</span> Lihat
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">Form Rubrik Baru</h2>
+                            <form class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Rubrik</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Masukkan nama rubrik"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                                    />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
+                                    <textarea
+                                        placeholder="Deskripsi rubrik penilaian"
+                                        rows="3"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                                    ></textarea>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Bobot (%)</label>
+                                        <input
+                                            type="number"
+                                            placeholder="0-100"
+                                            max="100"
+                                            min="0"
+                                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2"
+                                            >Jumlah Kriteria</label
+                                        >
+                                        <input
+                                            type="number"
+                                            placeholder="1-10"
+                                            max="10"
+                                            min="1"
+                                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Kategori</label>
+                                    <select
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                                    >
+                                        <option>Pilih kategori</option>
+                                        <option>Presentasi</option>
+                                        <option>Laporan</option>
+                                        <option>Tanya Jawab</option>
+                                        <option>Sikap</option>
+                                    </select>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h3 class="font-medium text-gray-800 mb-3">Kriteria Penilaian</h3>
+                                    <div class="space-y-3">
+                                        <div class="flex gap-2">
+                                            <input
+                                                type="text"
+                                                placeholder="Kriteria 1"
+                                                class="flex-1 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                                            />
+                                            <input
+                                                type="number"
+                                                placeholder="Bobot"
+                                                class="w-20 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                                            />
+                                            <button
+                                                type="button"
+                                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded transition-colors duration-200"
+                                            >
+                                                <span class="material-symbols-outlined text-sm">delete</span>
+                                            </button>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <input
+                                                type="text"
+                                                placeholder="Kriteria 2"
+                                                class="flex-1 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                                            />
+                                            <input
+                                                type="number"
+                                                placeholder="Bobot"
+                                                class="w-20 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                                            />
+                                            <button
+                                                type="button"
+                                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded transition-colors duration-200"
+                                            >
+                                                <span class="material-symbols-outlined text-sm">delete</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        class="mt-3 text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors duration-200"
+                                    >
+                                        <span class="material-symbols-outlined text-sm mr-1">add</span> Tambah Kriteria
+                                    </button>
+                                </div>
+                                <div class="flex gap-3 pt-4">
+                                    <button
+                                        type="submit"
+                                        class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 shadow-md flex-1"
+                                    >
+                                        Simpan Rubrik
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+                                    >
+                                        Reset
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Template Rubrik</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div
+                                class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer"
+                            >
+                                <h3 class="font-semibold text-gray-800 mb-2">Template Presentasi</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Template standar untuk penilaian presentasi seminar
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-gray-500">5 kriteria</span>
+                                    <button
+                                        class="bg-primary-100 hover:bg-primary-200 text-primary-700 px-3 py-1 rounded text-sm transition-colors duration-200"
+                                    >
+                                        Gunakan
+                                    </button>
+                                </div>
+                            </div>
+                            <div
+                                class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer"
+                            >
+                                <h3 class="font-semibold text-gray-800 mb-2">Template Laporan</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Template untuk penilaian kualitas laporan tugas akhir
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-gray-500">6 kriteria</span>
+                                    <button
+                                        class="bg-primary-100 hover:bg-primary-200 text-primary-700 px-3 py-1 rounded text-sm transition-colors duration-200"
+                                    >
+                                        Gunakan
+                                    </button>
+                                </div>
+                            </div>
+                            <div
+                                class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer"
+                            >
+                                <h3 class="font-semibold text-gray-800 mb-2">Template Diskusi</h3>
+                                <p class="text-sm text-gray-600 mb-3">Template untuk penilaian sesi tanya jawab</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-gray-500">4 kriteria</span>
+                                    <button
+                                        class="bg-primary-100 hover:bg-primary-200 text-primary-700 px-3 py-1 rounded text-sm transition-colors duration-200"
+                                    >
+                                        Gunakan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                content: ["./src/**/*.{html,js}"],
+                theme: {
+                    name: "Bluewave",
+                    fontFamily: {
+                        sans: [
+                            "Open Sans",
+                            "ui-sans-serif",
+                            "system-ui",
+                            "sans-serif",
+                            '"Apple Color Emoji"',
+                            '"Segoe UI Emoji"',
+                            '"Segoe UI Symbol"',
+                            '"Noto Color Emoji"'
+                        ]
+                    },
+                    extend: {
+                        fontFamily: {
+                            title: [
+                                "Lato",
+                                "ui-sans-serif",
+                                "system-ui",
+                                "sans-serif",
+                                '"Apple Color Emoji"',
+                                '"Segoe UI Emoji"',
+                                '"Segoe UI Symbol"',
+                                '"Noto Color Emoji"'
+                            ],
+                            body: [
+                                "Open Sans",
+                                "ui-sans-serif",
+                                "system-ui",
+                                "sans-serif",
+                                '"Apple Color Emoji"',
+                                '"Segoe UI Emoji"',
+                                '"Segoe UI Symbol"',
+                                '"Noto Color Emoji"'
+                            ]
+                        },
+                        colors: {
+                            neutral: {
+                                50: "#f7f7f7",
+                                100: "#eeeeee",
+                                200: "#e0e0e0",
+                                300: "#cacaca",
+                                400: "#b1b1b1",
+                                500: "#999999",
+                                600: "#7f7f7f",
+                                700: "#676767",
+                                800: "#545454",
+                                900: "#464646",
+                                950: "#282828"
+                            },
+                            primary: {
+                                50: "#f3f1ff",
+                                100: "#e9e5ff",
+                                200: "#d5cfff",
+                                300: "#b7a9ff",
+                                400: "#9478ff",
+                                500: "#7341ff",
+                                600: "#631bff",
+                                700: "#611bf8",
+                                800: "#4607d0",
+                                900: "#3c08aa",
+                                950: "#220174",
+                                DEFAULT: "#611bf8"
+                            }
+                        }
+                    },
+                    fontSize: {
+                        xs: ["12px", {lineHeight: "19.200000000000003px"}],
+                        sm: ["14px", {lineHeight: "21px"}],
+                        base: ["16px", {lineHeight: "25.6px"}],
+                        lg: ["18px", {lineHeight: "27px"}],
+                        xl: ["20px", {lineHeight: "28px"}],
+                        "2xl": ["24px", {lineHeight: "31.200000000000003px"}],
+                        "3xl": ["30px", {lineHeight: "36px"}],
+                        "4xl": ["36px", {lineHeight: "41.4px"}],
+                        "5xl": ["48px", {lineHeight: "52.800000000000004px"}],
+                        "6xl": ["60px", {lineHeight: "66px"}],
+                        "7xl": ["72px", {lineHeight: "75.60000000000001px"}],
+                        "8xl": ["96px", {lineHeight: "100.80000000000001px"}],
+                        "9xl": ["128px", {lineHeight: "134.4px"}]
+                    },
+                    borderRadius: {
+                        none: "0px",
+                        sm: "6px",
+                        DEFAULT: "12px",
+                        md: "18px",
+                        lg: "24px",
+                        xl: "36px",
+                        "2xl": "48px",
+                        "3xl": "72px",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        0: "0px",
+                        1: "4px",
+                        2: "8px",
+                        3: "12px",
+                        4: "16px",
+                        5: "20px",
+                        6: "24px",
+                        7: "28px",
+                        8: "32px",
+                        9: "36px",
+                        10: "40px",
+                        11: "44px",
+                        12: "48px",
+                        14: "56px",
+                        16: "64px",
+                        20: "80px",
+                        24: "96px",
+                        28: "112px",
+                        32: "128px",
+                        36: "144px",
+                        40: "160px",
+                        44: "176px",
+                        48: "192px",
+                        52: "208px",
+                        56: "224px",
+                        60: "240px",
+                        64: "256px",
+                        72: "288px",
+                        80: "320px",
+                        96: "384px",
+                        px: "1px",
+                        0.5: "2px",
+                        1.5: "6px",
+                        2.5: "10px",
+                        3.5: "14px"
+                    }
+                },
+                plugins: [],
+                important: "#webcrumbs"
+            }
+        </script>
+    </body>
+</html>

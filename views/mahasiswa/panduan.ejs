@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Panduan</title>
+    <link rel="stylesheet" href="/mahasiswa/CSS/dashboard.css">
+    <style>
+        /* Gaya dasar untuk memastikan tampilan yang layak jika belum ada di CSS Anda */
+        .panduan-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center; /* Untuk memusatkan konten kartu */
+        }
+
+        .panduan-card {
+            display: inline-block; /* Untuk memusatkan dan memberi ruang jika ada lebih dari satu */
+            margin: 15px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            width: 250px; /* Lebar kartu */
+            vertical-align: top; /* Penjajaran jika ada beberapa kartu */
+        }
+
+        .panduan-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .panduan-image-container {
+            margin-top: 15px;
+        }
+
+        .panduan-image-container a {
+            text-decoration: none;
+            color: #007bff;
+            display: block; /* Agar img dan p berada di baris terpisah */
+        }
+
+        .panduan-thumbnail {
+            width: 100px; /* Ukuran ikon PDF */
+            height: auto;
+            display: block; /* Hapus ruang kosong di bawah gambar */
+            margin: 0 auto 10px auto; /* Pusatkan gambar dan beri jarak bawah */
+        }
+
+        .panduan-image-container p {
+            font-size: 1rem;
+            color: #555;
+            word-wrap: break-word; /* Pastikan teks panjang tidak keluar wadah */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas" />
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+    <nav class="nav-tabs">
+        <div class="nav-left">
+            <a href="/dashboard/" class="nav-tab">Dashboard</a>
+            <a href="/daftar" class="nav-tab">Pendaftaran</a>
+            <a href="/riwayatseminar/" class="nav-tab">Riwayat Semhas</a>        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Buku Panduan Seminar Hasil</h2>
+
+        <section id="panduanSection" class="panduan-section">
+            <p>Memuat buku panduan...</p> 
+            </section>
+
+    </div>
+
+    <script>
+        // Fungsi createElement kustom Anda (contoh sederhana)
+        // Pastikan fungsi ini sama persis dengan yang Anda gunakan di skrip Anda
+        function createElement(tag, classNames = [], textContent = '', attributes = {}) {
+            const element = document.createElement(tag);
+            if (classNames.length > 0) {
+                element.classList.add(...classNames);
+            }
+            if (textContent) {
+                element.textContent = textContent;
+            }
+            for (const key in attributes) {
+                element.setAttribute(key, attributes[key]);
+            }
+            return element;
+        }
+
+        // Ambil elemen yang akan menjadi target penambahan kartu panduan
+        const panduanSection = document.getElementById('panduanSection');
+
+        // Pastikan Anda membersihkan placeholder awal
+        panduanSection.innerHTML = ''; 
+
+        // Kode JavaScript Anda yang akan membuat dan mengisi elemen
+        // Salin dan tempel kode JavaScript yang Anda berikan di sini:
+        const bookCard = createElement('div', ['panduan-card', 'book-panduan']);
+        bookCard.appendChild(createElement('h3', [], 'Buku Panduan Terbaru'));
+        const imgContainer = createElement('div', ['panduan-image-container']);
+        const pdfLink = createElement('a', [], '', { target: '_blank' }); // Link untuk PDF
+        const defaultPdfIcon = createElement('img', ['panduan-thumbnail'], '', {
+            src: '/admin/img/pdf-icon.png', // <--- GANTI DENGAN PATH ICON PDF ANDA JIKA BERBEDA
+            alt: 'PDF Icon'
+        });
+        pdfLink.appendChild(defaultPdfIcon);
+        const pdfTitle = createElement('p', [], 'Memuat...'); // Nama file PDF
+        pdfLink.appendChild(pdfTitle);
+        imgContainer.appendChild(pdfLink);
+        bookCard.appendChild(imgContainer);
+        panduanSection.appendChild(bookCard);
+
+        // Fetch latest panduan
+        try {
+            const fetchPanduan = async () => {
+                const response = await fetch('/api/panduan/latest');
+                if (response.ok) {
+                    const latest = await response.json();
+                    if (latest && latest.id_panduan && latest.nama_file) {
+                        pdfLink.href = `/api/panduan/file/${latest.id_panduan}`; // URL untuk menampilkan PDF
+                        pdfTitle.textContent = latest.nama_file;
+                    } else {
+                        pdfTitle.textContent = 'Tidak ada panduan tersedia';
+                        pdfLink.removeAttribute('href'); // Hapus link jika tidak ada file
+                    }
+                } else if (response.status === 404) {
+                    pdfTitle.textContent = 'Tidak ada panduan tersedia';
+                    pdfLink.removeAttribute('href');
+                } else {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            };
+            fetchPanduan(); // Panggil fungsi fetch
+        } catch (error) {
+            console.error("Error fetching latest panduan:", error);
+            pdfTitle.textContent = 'Gagal memuat panduan terbaru';
+            pdfLink.removeAttribute('href');
+        }
+    </script>
+    </body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistem Informasi Seminar Hasil - Universitas Andalas">
+    <title>SISemhas - Universitas Andalas</title>
+    <link rel="stylesheet" href="/mahasiswa/CSS/dashboard.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas" />
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="nav-left">
+            <a href="/dashboardMhs/" class="nav-tab active" aria-current="page">Dashboard</a>
+            <a href="/daftar/" class="nav-tab">Pendaftaran</a>
+            <a href="/riwayatseminar/" class="nav-tab">Riwayat Semhas</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <div class="welcome-text">
+                <h1>Halo, <%= nama_lengkap %></h1>
+                <p>Segera Daftar Seminar Online</p>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+<div class="content-grid">
+    <!-- Left Section - Riwayat Seminar -->
+    <section class="section">
+        <header class="section-header">
+            <span class="icon">🖨</span>
+            Riwayat - Seminar Hasil
+        </header>
+        
+        <% if (emptyState) { %>
+            <!-- Tampilkan pesan jika tidak ada data -->
+            <div class="empty-state">
+                <p>Belum ada riwayat seminar hasil</p>
+            </div>
+        <% } else { %>
+            <!-- Loop through riwayat data -->
+            <% riwayat.forEach(function(seminar) { %>
+                <div class="seminar-item">
+                    <div class="seminar-title">
+                        <%= seminar.judul || 'Seminar Hasil' %> - 
+                        <%= new Date().toLocaleDateString('id-ID', {
+                            day: '2-digit',
+                            month: '2-digit', 
+                            year: 'numeric'
+                        }) %>
+                    </div>
+                    <div class="seminar-status">
+                        Status : <%= seminar.status || 'Belum Ditentukan' %>
+                    </div>
+                </div>
+            <% }); %>
+        <% } %>
+    </section>
+
+            <!-- Right Section - Menu -->
+            <section class="section">
+                <header class="section-header">
+                    Seminar Hasil - Menu
+                </header>
+                
+                <div class="menu-buttons">
+                     <a href="/melihat/">
+                         <button class="menu-btn">Penilaian SemHas</button>
+                    </a> 
+                    <a href="/detailJadwal/">
+                         <button class="menu-btn">Detail Jadwal</button>
+                    </a> 
+                    <!-- Report Buttons Section -->
+                    <div class="">
+                        <button id="downloadPendaftaranPdfBtn" class="menu-btn">Generate Laporan Pendaftaran PDF</button>
+                        <p id="pendaftaran-error-message" class="error-message" style="display:none;"></p>
+                    </div>
+
+                    <a href="">
+                         <button class="menu-btn">Daftar Dosen</button>
+                    </a> 
+                </div>
+            </section>
+        </div>
+
+        <!-- Evaluation Section dan Panduan Section -->
+        <div class="eval-panduan">
+            <a href="/evaluasi/">
+                <button class="menu-btn">Evaluasi SISemhas</button>
+            </a> 
+            <a href="/panduan/">
+                <button class="menu-btn">Buku Panduan</button>
+            </a>
+        </div>        
+    </div>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', () => {
+    const downloadPdfBtn = document.getElementById('downloadPendaftaranPdfBtn');
+    const jadwalDosenBtn = document.getElementById('jadwalDosenBtn');
+    const errorMessageP = document.getElementById('pendaftaran-error-message');
+
+    const API_BASE_URL = 'http://localhost:3000/api';
+
+    const setLoading = (isLoading) => {
+        downloadPdfBtn.disabled = isLoading;
+        downloadPdfBtn.textContent = isLoading ? 'Mengenerate PDF...' : 'Generate Laporan Pendaftaran PDF';
+    };
+
+    const displayError = (message) => {
+        errorMessageP.textContent = message;
+        errorMessageP.style.display = 'block';
+    };
+
+    const clearMessages = () => {
+        errorMessageP.style.display = 'none';
+    };
+
+    // Handle Jadwal Dosen button click - Redirect langsung tanpa parameter
+    jadwalDosenBtn.addEventListener('click', () => {
+        // Redirect ke halaman jadwal dosen untuk melihat semua jadwal
+        window.location.href = '/jadwalDosen';
+    });
+
+    // Fungsi untuk mengunduh PDF pendaftaran
+    downloadPdfBtn.addEventListener('click', async () => {
+        console.log('Button clicked!');
+        clearMessages();
+        setLoading(true);
+        try {
+            const response = await fetch(`${API_BASE_URL}/pendaftaran/pdf`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'laporan_pendaftaran.pdf';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+            alert('Laporan PDF Pendaftaran berhasil diunduh!');
+        } catch (err) {
+            console.error("Error generating pendaftaran PDF:", err);
+            displayError('Gagal mengenerate laporan PDF. Pastikan server berjalan dan URL benar.');
+        } finally {
+            setLoading(false);
+        }
+    });
+});
+    </script>
+</body>
+</html>

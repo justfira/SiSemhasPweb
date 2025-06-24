@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISemhas - Universitas Andalas</title>
+    <link rel="stylesheet" href="/admin/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div id="app"></div>
+
+<!-- <script src="/admin/js/dashboard.js"></script> -->
+
+<script src="/admin/js/utils.js"></script>
+<script src="/admin/js/layout.js"></script>
+<script src="/admin/js/pages/daftarRoleUser.js"></script>
+<script src="/admin/js/pages/permintaanAkses.js"></script>
+<script src="/admin/js/pages/panduanSeminar.js"></script>
+<script src="/admin/js/pages/evaluasiSistem.js"></script>
+<script src="/admin/js/pages/panduanRiwayat.js"></script>
+<script src="/admin/js/pages/hapusUser.js"></script>
+
+
+<script>
+    // Ambil initialPageId yang diluluskan dari backend EJS
+    // Jika tidak ada, fallback ke 'daftarRoleUser' sebagai default
+    const initialPageId = "<%= typeof initialPageId !== 'undefined' ? initialPageId : 'daftarRoleUser' %>";
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        const appContainer = document.getElementById('app');
+        if (appContainer) {
+            await renderPage(initialPageId); // <--- Luluskan ID halaman yang benar
+        } else {
+            console.error("Elemen dengan ID 'app' tidak ditemukan di DOM. Konten tidak dapat dirender.");
+        }
+    });
+</script>
+
+</body>
+</html>

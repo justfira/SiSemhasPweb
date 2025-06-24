@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Kuota Seminar</title>
+    <link rel="stylesheet" href="/stylesheets/output.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Form Pengaturan Kuota -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-lg font-semibold text-gray-900">Pengaturan Kuota Mingguan</h2>
+                    <span class="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">Aktif</span>
+                </div>
+
+                <form id="quotaForm" class="space-y-6">
+                    <!-- Periode Minggu -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Periode Minggu</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">Tanggal Mulai</label>
+                                <input type="date" id="startDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">Tanggal Selesai</label>
+                                <input type="date" id="endDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kuota Per Hari -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Kuota Seminar Per Hari</label>
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-700">Senin</span>
+                                    <input type="number" min="0" max="10" value="3" class="w-16 px-2 py-1 text-center border border-gray-300 rounded focus:ring-1 focus:ring-primary">
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-700">Selasa</span>
+                                    <input type="number" min="0" max="10" value="3" class="w-16 px-2 py-1 text-center border border-gray-300 rounded focus:ring-1 focus:ring-primary">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-700">Rabu</span>
+                                    <input type="number" min="0" max="10" value="4" class="w-16 px-2 py-1 text-center border border-gray-300 rounded focus:ring-1 focus:ring-primary">
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-700">Kamis</span>
+                                    <input type="number" min="0" max="10" value="4" class="w-16 px-2 py-1 text-center border border-gray-300 rounded focus:ring-1 focus:ring-primary">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-700">Jumat</span>
+                                    <input type="number" min="0" max="10" value="2" class="w-16 px-2 py-1 text-center border border-gray-300 rounded focus:ring-1 focus:ring-primary">
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-700">Sabtu</span>
+                                    <input type="number" min="0" max="10" value="0" class="w-16 px-2 py-1 text-center border border-gray-300 rounded focus:ring-1 focus:ring-primary">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-right">
+                            <span class="text-sm text-gray-500">Total per minggu: <span id="totalQuota" class="font-medium text-primary">16</span> seminar</span>
+                        </div>
+                    </div>
+
+                    <!-- Aturan Teknis -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Aturan Teknis</label>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                                <span class="text-sm text-gray-700">Durasi per seminar</span>
+                                <select class="px-3 py-1 border border-gray-300 rounded focus:ring-1 focus:ring-primary">
+                                    <option>90 menit</option>
+                                    <option>120 menit</option>
+                                    <option>150 menit</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                                <span class="text-sm text-gray-700">Jeda antar seminar</span>
+                                <select class="px-3 py-1 border border-gray-300 rounded focus:ring-1 focus:ring-primary">
+                                    <option>15 menit</option>
+                                    <option>30 menit</option>
+                                    <option>45 menit</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                                <span class="text-sm text-gray-700">Jam operasional</span>
+                                <div class="flex space-x-2">
+                                    <input type="time" value="08:00" class="px-2 py-1 border border-gray-300 rounded focus:ring-1 focus:ring-primary text-sm">
+                                    <span class="text-gray-500">-</span>
+                                    <input type="time" value="16:00" class="px-2 py-1 border border-gray-300 rounded focus:ring-1 focus:ring-primary text-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pengaturan Tambahan -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Pengaturan Tambahan</label>
+                        <div class="space-y-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="rounded border-gray-300 text-primary focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-700">Otomatis tutup pendaftaran jika kuota penuh</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-700">Izinkan waiting list</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="rounded border-gray-300 text-primary focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-700">Kirim notifikasi email untuk perubahan kuota</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Aksi -->
+                    <div class="flex space-x-3 pt-4">
+                        <button type="submit" class="flex-1 bg-primary text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                            Simpan Pengaturan
+                        </button>
+                        <button type="button" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                            Reset
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Status dan Riwayat -->
+            <div class="space-y-6">
+                <!-- Status Kuota Saat Ini -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Status Kuota Minggu Ini</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                <span class="text-sm font-medium text-gray-700">Senin, 17 Jun</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-sm text-blue-600 font-medium">2/3</span>
+                                <div class="w-12 h-1 bg-gray-200 rounded-full mt-1">
+                                    <div class="w-8 h-1 bg-blue-500 rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <span class="text-sm font-medium text-gray-700">Selasa, 18 Jun</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-sm text-green-600 font-medium">3/3</span>
+                                <div class="w-12 h-1 bg-gray-200 rounded-full mt-1">
+                                    <div class="w-12 h-1 bg-green-500 rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
+                                <span class="text-sm font-medium text-gray-700">Rabu, 19 Jun</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-sm text-gray-600 font-medium">0/4</span>
+                                <div class="w-12 h-1 bg-gray-200 rounded-full mt-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistik -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Statistik Bulanan</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600">48</div>
+                            <div class="text-sm text-gray-600">Total Seminar</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600">75%</div>
+                            <div class="text-sm text-gray-600">Tingkat Utilisasi</div>
+                        </div>
+                        <div class="text-center p-4 bg-yellow-50 rounded-lg">
+                            <div class="text-2xl font-bold text-yellow-600">12</div>
+                            <div class="text-sm text-gray-600">Waiting List</div>
+                        </div>
+                        <div class="text-center p-4 bg-purple-50 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600">64</div>
+                            <div class="text-sm text-gray-600">Kuota Total</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Riwayat Perubahan -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Riwayat Perubahan</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3 p-3 border-l-4 border-blue-500 bg-blue-50">
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-900">Kuota Rabu ditingkatkan</div>
+                                <div class="text-xs text-gray-500">15 Jun 2025 - 14:30</div>
+                            </div>
+                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">+1</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 border-l-4 border-orange-500 bg-orange-50">
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-900">Durasi seminar diubah</div>
+                                <div class="text-xs text-gray-500">12 Jun 2025 - 09:15</div>
+                            </div>
+                            <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded">120 min</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 border-l-4 border-green-500 bg-green-50">
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-900">Kuota mingguan ditetapkan</div>
+                                <div class="text-xs text-gray-500">10 Jun 2025 - 08:00</div>
+                            </div>
+                            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">16/minggu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk menghitung total kuota
+        function calculateTotalQuota() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            let total = 0;
+            inputs.forEach(input => {
+                total += parseInt(input.value) || 0;
+            });
+            document.getElementById('totalQuota').textContent = total;
+        }
+
+        // Event listener untuk perubahan kuota
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', calculateTotalQuota);
+        });
+
+        // Set tanggal default (minggu ini)
+        function setDefaultDates() {
+            const today = new Date();
+            const monday = new Date(today);
+            monday.setDate(today.getDate() - today.getDay() + 1);
+            
+            const sunday = new Date(monday);
+            sunday.setDate(monday.getDate() + 6);
+            
+            document.getElementById('startDate').value = monday.toISOString().split('T')[0];
+            document.getElementById('endDate').value = sunday.toISOString().split('T')[0];
+        }
+
+        // Form submission
+        document.getElementById('quotaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulasi loading
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Menyimpan...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Pengaturan kuota berhasil disimpan!');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Update timestamp di riwayat
+                const now = new Date();
+                const timeString = now.toLocaleString('id-ID', {
+                    day: 'numeric',
+                    month: 'short', 
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                // Tambah entry baru ke riwayat (simulasi)
+                console.log(`Kuota diperbarui pada ${timeString}`);
+            }, 1500);
+        });
+
+        // Initialize
+        setDefaultDates();
+        calculateTotalQuota();
+    </script>
+</body>
+</html>

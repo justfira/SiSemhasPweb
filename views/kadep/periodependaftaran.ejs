@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Periode Pendaftaran Seminar</title>
+        <link rel="stylesheet" href="/stylesheets/output.css" />
+        <style>
+            @import url(https://fonts.googleapis.com/css2?family=Lato&display=swap);
+            @import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);
+            @import url(https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200);
+        </style>
+    </head>
+    <body>
+        <div id="webcrumbs">
+            <div class="w-[1200px] mx-auto p-8 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+                <div class="max-w-6xl mx-auto">
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+                        <div class="flex items-center justify-between mb-8">
+                            <div>
+                                <h1 class="text-3xl font-bold text-slate-800 mb-2">Periode Pendaftaran Seminar</h1>
+                                <p class="text-slate-600">Kelola periode pendaftaran untuk setiap batch dan semester</p>
+                            </div>
+                            <button
+                                class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+                            >
+                                <span class="material-symbols-outlined">add</span> Buat Periode Baru
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                            <div
+                                class="bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-xl border border-green-300"
+                            >
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-green-800">Periode Aktif</h3>
+                                        <p class="text-2xl font-bold text-green-900 mt-2">3</p>
+                                    </div>
+                                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-white">schedule</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-xl border border-blue-300"
+                            >
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-blue-800">Total Pendaftar</h3>
+                                        <p class="text-2xl font-bold text-blue-900 mt-2">247</p>
+                                    </div>
+                                    <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-white">group</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="bg-gradient-to-br from-amber-100 to-amber-200 p-6 rounded-xl border border-amber-300"
+                            >
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-amber-800">Periode Tertutup</h3>
+                                        <p class="text-2xl font-bold text-amber-900 mt-2">12</p>
+                                    </div>
+                                    <div class="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-white">lock</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                            <div class="p-6 border-b border-slate-200">
+                                <div
+                                    class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+                                >
+                                    <h2 class="text-xl font-semibold text-slate-800">Daftar Periode Pendaftaran</h2>
+                                    <div class="flex flex-col sm:flex-row gap-3">
+                                        <select
+                                            class="border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300"
+                                        >
+                                            <option>Semua Semester</option>
+                                            <option>Ganjil 2024/2025</option>
+                                            <option>Genap 2023/2024</option>
+                                            <option>Ganjil 2023/2024</option>
+                                        </select>
+                                        <div class="relative">
+                                            <input
+                                                type="text"
+                                                placeholder="Cari periode..."
+                                                class="border border-slate-300 rounded-lg px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300 w-full sm:w-64"
+                                            />
+                                            <span
+                                                class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400"
+                                                >search</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-slate-50">
+                                        <tr>
+                                            <th class="text-left p-4 font-semibold text-slate-700">Nama Periode</th>
+                                            <th class="text-left p-4 font-semibold text-slate-700">Batch/Semester</th>
+                                            <th class="text-left p-4 font-semibold text-slate-700">Tanggal Mulai</th>
+                                            <th class="text-left p-4 font-semibold text-slate-700">Tanggal Berakhir</th>
+                                            <th class="text-left p-4 font-semibold text-slate-700">Status</th>
+                                            <th class="text-left p-4 font-semibold text-slate-700">Pendaftar</th>
+                                            <th class="text-left p-4 font-semibold text-slate-700">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            class="border-b border-slate-100 hover:bg-slate-50 transition-colors duration-200"
+                                        >
+                                            <td class="p-4">
+                                                <div class="font-medium text-slate-800">
+                                                    Pendaftaran Seminar Proposal
+                                                </div>
+                                                <div class="text-sm text-slate-500">Batch 2024-1</div>
+                                            </td>
+                                            <td class="p-4">
+                                                <span
+                                                    class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+                                                    >Ganjil 2024/2025</span
+                                                >
+                                            </td>
+                                            <td class="p-4 text-slate-700">15 Jan 2024</td>
+                                            <td class="p-4 text-slate-700">28 Feb 2024</td>
+                                            <td class="p-4">
+                                                <span
+                                                    class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1 w-fit"
+                                                >
+                                                    <span class="w-2 h-2 bg-green-500 rounded-full"></span> Aktif
+                                                </span>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="font-medium text-slate-800">42</div>
+                                                <div class="text-sm text-slate-500">mahasiswa</div>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="flex items-center gap-2">
+                                                    <button
+                                                        class="w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-blue-600 text-sm"
+                                                            >edit</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="w-8 h-8 bg-amber-100 hover:bg-amber-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-amber-600 text-sm"
+                                                            >pause</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-slate-600 text-sm"
+                                                            >visibility</span
+                                                        >
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="border-b border-slate-100 hover:bg-slate-50 transition-colors duration-200"
+                                        >
+                                            <td class="p-4">
+                                                <div class="font-medium text-slate-800">Pendaftaran Seminar Hasil</div>
+                                                <div class="text-sm text-slate-500">Batch 2024-1</div>
+                                            </td>
+                                            <td class="p-4">
+                                                <span
+                                                    class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+                                                    >Ganjil 2024/2025</span
+                                                >
+                                            </td>
+                                            <td class="p-4 text-slate-700">01 Mar 2024</td>
+                                            <td class="p-4 text-slate-700">15 Apr 2024</td>
+                                            <td class="p-4">
+                                                <span
+                                                    class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1 w-fit"
+                                                >
+                                                    <span class="w-2 h-2 bg-green-500 rounded-full"></span> Aktif
+                                                </span>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="font-medium text-slate-800">18</div>
+                                                <div class="text-sm text-slate-500">mahasiswa</div>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="flex items-center gap-2">
+                                                    <button
+                                                        class="w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-blue-600 text-sm"
+                                                            >edit</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="w-8 h-8 bg-amber-100 hover:bg-amber-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-amber-600 text-sm"
+                                                            >pause</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-slate-600 text-sm"
+                                                            >visibility</span
+                                                        >
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="border-b border-slate-100 hover:bg-slate-50 transition-colors duration-200"
+                                        >
+                                            <td class="p-4">
+                                                <div class="font-medium text-slate-800">Pendaftaran Sidang Skripsi</div>
+                                                <div class="text-sm text-slate-500">Batch 2023-2</div>
+                                            </td>
+                                            <td class="p-4">
+                                                <span
+                                                    class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium"
+                                                    >Genap 2023/2024</span
+                                                >
+                                            </td>
+                                            <td class="p-4 text-slate-700">20 Nov 2023</td>
+                                            <td class="p-4 text-slate-700">10 Jan 2024</td>
+                                            <td class="p-4">
+                                                <span
+                                                    class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1 w-fit"
+                                                >
+                                                    <span class="w-2 h-2 bg-red-500 rounded-full"></span> Tutup
+                                                </span>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="font-medium text-slate-800">187</div>
+                                                <div class="text-sm text-slate-500">mahasiswa</div>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="flex items-center gap-2">
+                                                    <button
+                                                        class="w-8 h-8 bg-green-100 hover:bg-green-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-green-600 text-sm"
+                                                            >play_arrow</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-slate-600 text-sm"
+                                                            >visibility</span
+                                                        >
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="border-b border-slate-100 hover:bg-slate-50 transition-colors duration-200"
+                                        >
+                                            <td class="p-4">
+                                                <div class="font-medium text-slate-800">
+                                                    Pendaftaran Seminar Komprehensif
+                                                </div>
+                                                <div class="text-sm text-slate-500">Batch 2024-2</div>
+                                            </td>
+                                            <td class="p-4">
+                                                <span
+                                                    class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+                                                    >Ganjil 2024/2025</span
+                                                >
+                                            </td>
+                                            <td class="p-4 text-slate-700">01 Feb 2024</td>
+                                            <td class="p-4 text-slate-700">30 Mar 2024</td>
+                                            <td class="p-4">
+                                                <span
+                                                    class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1 w-fit"
+                                                >
+                                                    <span class="w-2 h-2 bg-green-500 rounded-full"></span> Aktif
+                                                </span>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="font-medium text-slate-800">0</div>
+                                                <div class="text-sm text-slate-500">mahasiswa</div>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="flex items-center gap-2">
+                                                    <button
+                                                        class="w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-blue-600 text-sm"
+                                                            >edit</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="w-8 h-8 bg-amber-100 hover:bg-amber-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-amber-600 text-sm"
+                                                            >pause</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                                    >
+                                                        <span class="material-symbols-outlined text-slate-600 text-sm"
+                                                            >visibility</span
+                                                        >
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="p-6 border-t border-slate-200 bg-slate-50">
+                                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                                    <div class="text-sm text-slate-600">Menampilkan 1-4 dari 16 periode</div>
+                                    <div class="flex items-center gap-2">
+                                        <button
+                                            class="px-3 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors duration-200"
+                                        >
+                                            <span class="material-symbols-outlined text-sm">chevron_left</span>
+                                        </button>
+                                        <button
+                                            class="px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200"
+                                        >
+                                            1
+                                        </button>
+                                        <button
+                                            class="px-3 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors duration-200"
+                                        >
+                                            2
+                                        </button>
+                                        <button
+                                            class="px-3 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors duration-200"
+                                        >
+                                            3
+                                        </button>
+                                        <button
+                                            class="px-3 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors duration-200"
+                                        >
+                                            <span class="material-symbols-outlined text-sm">chevron_right</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h3 class="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary-600">trending_up</span> Statistik
+                                Pendaftaran
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-600">Januari 2024</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-20 h-2 bg-slate-200 rounded-full overflow-hidden">
+                                            <div class="w-3/4 h-full bg-primary-500 rounded-full"></div>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-700">75%</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-600">Februari 2024</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-20 h-2 bg-slate-200 rounded-full overflow-hidden">
+                                            <div class="w-2/3 h-full bg-blue-500 rounded-full"></div>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-700">67%</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-600">Maret 2024</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-20 h-2 bg-slate-200 rounded-full overflow-hidden">
+                                            <div class="w-1/2 h-full bg-green-500 rounded-full"></div>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-700">50%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h3 class="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary-600">notifications</span> Pengingat
+                                Sistem
+                            </h3>
+                            <div class="space-y-3">
+                                <div
+                                    class="flex items-start gap-3 p-3 bg-amber-50 rounded-lg border-l-4 border-amber-400"
+                                >
+                                    <span class="material-symbols-outlined text-amber-600 text-sm mt-0.5">warning</span>
+                                    <div>
+                                        <p class="text-sm font-medium text-amber-800">Periode akan berakhir</p>
+                                        <p class="text-xs text-amber-600">
+                                            Pendaftaran Seminar Proposal berakhir dalam 7 hari
+                                        </p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400"
+                                >
+                                    <span class="material-symbols-outlined text-blue-600 text-sm mt-0.5">info</span>
+                                    <div>
+                                        <p class="text-sm font-medium text-blue-800">Update sistem</p>
+                                        <p class="text-xs text-blue-600">Fitur notifikasi otomatis telah diaktifkan</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                content: ["./src/**/*.{html,js}"],
+                theme: {
+                    name: "Bluewave",
+                    fontFamily: {
+                        sans: [
+                            "Open Sans",
+                            "ui-sans-serif",
+                            "system-ui",
+                            "sans-serif",
+                            '"Apple Color Emoji"',
+                            '"Segoe UI Emoji"',
+                            '"Segoe UI Symbol"',
+                            '"Noto Color Emoji"'
+                        ]
+                    },
+                    extend: {
+                        fontFamily: {
+                            title: [
+                                "Lato",
+                                "ui-sans-serif",
+                                "system-ui",
+                                "sans-serif",
+                                '"Apple Color Emoji"',
+                                '"Segoe UI Emoji"',
+                                '"Segoe UI Symbol"',
+                                '"Noto Color Emoji"'
+                            ],
+                            body: [
+                                "Open Sans",
+                                "ui-sans-serif",
+                                "system-ui",
+                                "sans-serif",
+                                '"Apple Color Emoji"',
+                                '"Segoe UI Emoji"',
+                                '"Segoe UI Symbol"',
+                                '"Noto Color Emoji"'
+                            ]
+                        },
+                        colors: {
+                            neutral: {
+                                50: "#f7f7f7",
+                                100: "#eeeeee",
+                                200: "#e0e0e0",
+                                300: "#cacaca",
+                                400: "#b1b1b1",
+                                500: "#999999",
+                                600: "#7f7f7f",
+                                700: "#676767",
+                                800: "#545454",
+                                900: "#464646",
+                                950: "#282828"
+                            },
+                            primary: {
+                                50: "#f3f1ff",
+                                100: "#e9e5ff",
+                                200: "#d5cfff",
+                                300: "#b7a9ff",
+                                400: "#9478ff",
+                                500: "#7341ff",
+                                600: "#631bff",
+                                700: "#611bf8",
+                                800: "#4607d0",
+                                900: "#3c08aa",
+                                950: "#220174",
+                                DEFAULT: "#611bf8"
+                            }
+                        }
+                    },
+                    fontSize: {
+                        xs: ["12px", {lineHeight: "19.200000000000003px"}],
+                        sm: ["14px", {lineHeight: "21px"}],
+                        base: ["16px", {lineHeight: "25.6px"}],
+                        lg: ["18px", {lineHeight: "27px"}],
+                        xl: ["20px", {lineHeight: "28px"}],
+                        "2xl": ["24px", {lineHeight: "31.200000000000003px"}],
+                        "3xl": ["30px", {lineHeight: "36px"}],
+                        "4xl": ["36px", {lineHeight: "41.4px"}],
+                        "5xl": ["48px", {lineHeight: "52.800000000000004px"}],
+                        "6xl": ["60px", {lineHeight: "66px"}],
+                        "7xl": ["72px", {lineHeight: "75.60000000000001px"}],
+                        "8xl": ["96px", {lineHeight: "100.80000000000001px"}],
+                        "9xl": ["128px", {lineHeight: "134.4px"}]
+                    },
+                    borderRadius: {
+                        none: "0px",
+                        sm: "6px",
+                        DEFAULT: "12px",
+                        md: "18px",
+                        lg: "24px",
+                        xl: "36px",
+                        "2xl": "48px",
+                        "3xl": "72px",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        0: "0px",
+                        1: "4px",
+                        2: "8px",
+                        3: "12px",
+                        4: "16px",
+                        5: "20px",
+                        6: "24px",
+                        7: "28px",
+                        8: "32px",
+                        9: "36px",
+                        10: "40px",
+                        11: "44px",
+                        12: "48px",
+                        14: "56px",
+                        16: "64px",
+                        20: "80px",
+                        24: "96px",
+                        28: "112px",
+                        32: "128px",
+                        36: "144px",
+                        40: "160px",
+                        44: "176px",
+                        48: "192px",
+                        52: "208px",
+                        56: "224px",
+                        60: "240px",
+                        64: "256px",
+                        72: "288px",
+                        80: "320px",
+                        96: "384px",
+                        px: "1px",
+                        0.5: "2px",
+                        1.5: "6px",
+                        2.5: "10px",
+                        3.5: "14px"
+                    }
+                },
+                plugins: [],
+                important: "#webcrumbs"
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISemhas - Universitas Andalas</title>
+    <link rel="stylesheet" href="/mahasiswa/CSS/detailRiwayat.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas">
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="nav-left">
+            <a href="/dashboard/" class="nav-tab">Dashboard</a>
+            <a href="/daftar/" class="nav-tab">Pendaftaran</a>
+            <a href="/riwayatseminar/" class="nav-tab">Riwayat Semhas</a>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-arrow"></div>
+        <a href="/riwayatseminar/" class="breadcrumb-text">← Kembali</a>
+    </div>
+    </div>
+
+    <!-- Main Content -->
+     <div class="main-content">
+        <!-- Seminar Details -->
+        <div class="seminar-detail">
+                <!-- Menampilkan tombol "Revisi Ulang Berkas" jika status adalah "Revisi" -->
+                <% if (status === 'Revisi') { %>
+                    <div class="action-buttons">
+                        <form action="/mahasiswa/upload/<%= id_pendaftaran %>" method="GET">
+                            <button type="submit" class="action-button">Revisi Ulang Berkas</button>
+                        </form>
+                    </div>
+                <% } else if (status === 'Belum dinilai') { %>
+                    <div class="info-message">
+                        <p>Seminar Anda belum dinilai oleh dosen penguji.</p>
+                    </div>
+                <% } else if (status === 'Lulus') { %>
+                    <div class="success-message">
+                        <p>🎉 Selamat! Anda telah lulus seminar. Lanjutkan perjuangan mu! 💪</p>
+                    </div>
+                <% } else if (status === 'Tidak Lulus') { %>
+                    <div class="error-message">
+                        <p>Maaf, Anda belum lulus seminar. Silakan persiapkan diri untuk seminar ulang.</p>
+                    </div>
+                <% } %>
+
+            <div class="form-group">
+                <label for="nama-lengkap">Nama Lengkap</label>
+                <span id="nama-lengkap"><%= nama_lengkap %></span>
+            </div>
+            <div class="form-group">
+                <label for="nim">nim </label>
+                <span id="nim"><%= nim %></span>
+            </div>
+            <div class="form-group">
+                <label for="dosen-pembimbing">Dosen Pembimbing</label>
+                <span id="dosen-pembimbing"><%= nama_dosen %></span>
+            </div>
+            <div class="form-group">
+                <label for="judul">judul</label>
+                <span id="judul"><%= judul %></span>
+            </div>
+            <div class="form-group">
+                <label for="dospeng">Dosen Penguji</label>
+                <span id="dosen-penguji"><%= dosen_penguji %></span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="buttons">
+                <button id="check-berkas" class="action-button">Check Berkas</button>
+                <button id="check-nilai" class="action-button">Check Nilai</button>
+            </div>
+
+            <!-- Button untuk mengunduh PDF -->
+            <div class="action-buttons">
+                <a href="/api/pendaftaran/pdf/<%= id_pendaftaran %>">
+                    <button class="action-button">Download PDF</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

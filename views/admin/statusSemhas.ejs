@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pendaftaran Seminar</title>
+    <style>
+        /* CSS */
+        html, body {
+        height: 100%; /* HTML dan BODY harus 100% tinggi */
+        margin: 0;
+        padding: 0;
+        color: var(--text-dark);
+        line-height: 1.6;
+        
+    
+        }
+        .header {
+            background: linear-gradient(135deg, #d2691e, #d2691e);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #ffd89b 0%, #19547b 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .section {
+            padding: 20px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .section-header .icon {
+            margin-right: 10px;
+        }
+
+        .seminar-item {
+            display: flex;
+            flex-direction: column;
+            background-color: #fafafa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .seminar-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .seminar-status {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .status-action {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .status-button {
+            background-color: #ff9800;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .status-button:hover {
+            background-color: #f57c00;
+        }
+
+        .status-button:focus {
+            outline: none;
+        }
+
+        .empty-state {
+            text-align: center;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+        }
+        .navigate-button {
+            background-color: #4CAF50; /* Warna hijau */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .navigate-button:hover {
+            background-color: #a07145; /* Warna lebih gelap ketika hover */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas" />
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+<section class="section">
+    
+    
+    <header class="section-header">
+        <span class="icon">📋</span>
+        Daftar Pendaftaran Seminar
+    </header>
+    
+    <% if (pendaftaran.length > 0) { %>
+        <% pendaftaran.forEach(function(item) { %>
+            <div class="seminar-item">
+                <div class="seminar-title">
+                    <strong><%= item.judul %></strong> - <%= item.bidang_penelitian %> <!-- Menampilkan judul dan bidang penelitian -->
+                </div>
+                <div class="seminar-status">
+                    Status : <%= item.status %> <!-- Menampilkan status seminar -->
+                </div>
+                <div class="status-action">
+                    <!-- Tombol untuk mengubah status seminar -->
+                    <form action="/updateStatus/<%= item.id_pendaftaran %>" method="POST">
+                        <button type="submit" class="status-button">
+                            <%= item.status === 'Lulus' ? 'Revisi' : 'Lulus' %>
+                        </button>
+                        
+                    </form>
+                </div>
+                
+            </div>
+            
+        <% }); %>
+        <a href="/admin/daftar-role-user">
+            <button class="navigate-button">Kembali</button>
+        </a>
+    <% } else { %>
+        <div class="empty-state">
+            <p>Belum ada pendaftaran seminar yang terdaftar.</p>
+        </div>
+    <% } %>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISemhas - Universitas Andalas</title>
+    <link rel="stylesheet" href="/mahasiswa/CSS/pendaftaran.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas">
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="nav-left">
+            <a href="/dashboard/" class="nav-tab">Dashboard</a>
+            <a href="/daftar/" class="nav-tab active">Pendaftaran</a>
+            <a href="/riwayatseminar/" class="nav-tab">Riwayat Semhas</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="forms-wrapper">
+            <div class="form-container active" id="form1">
+                <div class="form-header">
+                    <h2>📄 Biodata Mahasiswa</h2>
+                    <p class="form-subtitle">Dosen Pembimbing</p>
+                </div>
+
+                <div id="successMessage" class="success-message"></div>
+
+                <form id="dosenForm" action="/daftar" method="POST">
+                    <div class="form-group">
+                        <label for="judul">Judul Penelitian</label>
+                        <input type="text" class="form-control" id="judul" name="judul" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bidangPenelitian">Bidang Penelitian</label>
+                        <select id="bidangPenelitian" name="bidangPenelitian" required>
+                            <option value="">Pilih Bidang</option>
+                            <% bidangList.forEach(function(bidang) { %>
+                                <option value="<%= bidang %>"><%= bidang %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nipDosen">Dosen Pembimbing</label>
+                          <select name="namaDosen" required>
+                            <option value="">Pilih Dosen</option>
+                            <% dosenList.forEach(dosen => { %>
+                            <option value="<%= dosen.nama_lengkap %>"><%= dosen.nama_lengkap %></option>
+                            <% }) %>
+
+                        </select>
+                    </div>
+
+                    <button class="submit-btn" type="submit">Daftar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Application initialized');
+            attachEventListeners();
+        });
+
+        function attachEventListeners() {
+            const form = document.getElementById('dosenForm');
+            if (!form) return;
+
+            form.addEventListener('submit', function (e) {
+                const nama = document.getElementById('nama_lengkap').value.trim();
+                const nim = document.getElementById('nim').value.trim();
+                const judul = document.getElementById('judul').value.trim();
+                const bidang = document.getElementById('bidangPenelitian').value;
+                const dosen = document.getElementById('nipDosen').value;
+
+                let valid = true;
+
+                if (!nama) {
+                    alert('Nama tidak boleh kosong');
+                    valid = false;
+                }
+
+                if (!/^\d{10,}$/.test(nim)) {
+                    alert('NIM harus berupa angka minimal 10 digit');
+                    valid = false;
+                }
+
+                if (!judul) {
+                    alert('Judul harus diisi');
+                    valid = false;
+                }
+
+                if (!bidang) {
+                    alert('Bidang penelitian harus dipilih');
+                    valid = false;
+                }
+
+                if (!dosen) {
+                    alert('Dosen pembimbing harus dipilih');
+                    valid = false;
+                }
+
+                if (!valid) {
+                    e.preventDefault();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

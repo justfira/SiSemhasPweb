@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISemhas - Universitas Andalas</title>
+    <link rel="stylesheet" href="/mahasiswa/CSS/upload.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas">
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="nav-left">
+            <a href="/dashboardMhs/" class="nav-tab">Dashboard</a>
+            <a href="/daftar/" class="nav-tab active">Pendaftaran</a>
+            <a href="#" class="nav-tab">Riwayat Semhas</a>
+        </div>
+    </nav>
+    
+    <form id="uploadForm" action="/mahasiswa/upload/<%= id_pendaftaran %>" method="POST" enctype="multipart/form-data">
+        <div class="main-content">
+            <div class="upload-section">
+            <h1 class="upload-title">Upload Berkas</h1>
+            <p class="upload-subtitle">File Harus berupa PDF - Maksimal 20MB</p>
+
+            <input type="hidden" name="nim" value="12345678"> <!-- Ganti dengan NIM dinamis -->
+
+            <div class="upload-grid">
+                <div class="upload-item" onclick="document.getElementById('krs').click()">
+                <h3>KRS</h3>
+                <button class="file-button" type="button">📄 Pilih File</button>
+                <input type="file" name="krs" id="krs" class="file-input" accept=".pdf" onchange="updateFileName(this, 'krs-info')">
+                <div id="krs-info" class="file-info">Belum ada file dipilih</div>
+                </div>
+
+                <div class="upload-item" onclick="document.getElementById('ppt').click()">
+                <h3>PPT Penelitian</h3>
+                <button class="file-button" type="button">📄 Pilih File</button>
+                <input type="file" name="ppt" id="ppt" class="file-input" accept=".pdf" onchange="updateFileName(this, 'ppt-info')">
+                <div id="ppt-info" class="file-info">Belum ada file dipilih</div>
+                </div>
+
+                <div class="upload-item" onclick="document.getElementById('lampiran').click()">
+                <h3>Lampiran Pengesahan</h3>
+                <button class="file-button" type="button">📄 Pilih File</button>
+                <input type="file" name="lampiran" id="lampiran" class="file-input" accept=".pdf" onchange="updateFileName(this, 'lampiran-info')">
+                <div id="lampiran-info" class="file-info">Belum ada file dipilih</div>
+                </div>
+
+                <div class="upload-item" onclick="document.getElementById('laporan').click()">
+                <h3>Laporan Penelitian</h3>
+                <button class="file-button" type="button">📄 Pilih File</button>
+                <input type="file" name="laporan" id="laporan" class="file-input" accept=".pdf" onchange="updateFileName(this, 'laporan-info')">
+                <div id="laporan-info" class="file-info">Belum ada file dipilih</div>
+                </div>
+            </div>
+
+            <button class="submit-btn" type="submit">Submit Berkas</button>
+            </div>
+        </div>
+    </form>
+    
+    <script>
+        function updateFileName(input, infoId) {
+            const fileName = input.files[0]?.name || "Belum ada file dipilih";
+            document.getElementById(infoId).textContent = fileName;
+        }
+    </script>
+</body>
+</html>

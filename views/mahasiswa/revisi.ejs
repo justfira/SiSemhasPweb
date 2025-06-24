@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiSemhas - Universitas Andalas</title>
+    <link rel="stylesheet" href="/mahasiswa/css/revisi.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas">
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+            <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+          <div class="nav-left">
+            <a href="/dashboardMhs" class="nav-tab">Dashboard</a>
+            <a href="/daftar/" class="nav-tab">Pendaftaran</a>
+            <a href="/riwayat/" class="nav-tab">Riwayat Semhas</a>
+          </div>
+        </nav>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <span>Revisi_Berkas</span>
+        </div>
+
+<!-- Main Content -->
+        <main class="main-content">
+            <!-- Two Column Layout -->
+            <div class="two-column-layout">
+                <!-- Left Column - Upload Revisi -->
+                <div class="column left-column">
+                    <section class="form-section">
+                        <h2>Upload Revisi</h2>
+                        <p class="subtitle">For Seminar Proposal - Approved 2024</p>
+                        
+                        <form id="uploadForm">
+                            <div class="field-group">
+                                <p class="field-label">PPT_Penelitian</p>
+                                <div class="file-upload-group">
+                                    <div class="file-input-container">
+                                        <input type="file" id="pptFile" accept=".ppt,.pptx,.pdf" class="file-input">
+                                        <label for="pptFile" class="file-label">
+                                            <span class="file-text">Pilih File</span>
+                                            <span class="upload-icon">📁</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field-group">
+                                <p class="field-label">Laporan_Penelitian</p>
+                                <div class="file-upload-group">
+                                    <div class="file-input-container">
+                                        <input type="file" id="laporanFile" accept=".doc,.docx,.pdf" class="file-input">
+                                        <label for="laporanFile" class="file-label">
+                                            <span class="file-text">Pilih File</span>
+                                            <span class="upload-icon">📁</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn">SUBMIT</button>
+                        </form>
+                    </section>
+                </div>
+
+                <!-- Right Column - Pilih Jadwal -->
+                <div class="column right-column">
+                    <section class="form-section">
+                        <h2>Pilih Jadwal</h2>
+                        <p class="field-label">Jadwal Seminar Hasil</p>
+                        
+                        <form id="jadwalForm">
+                            <div class="select-container">
+                                <select id="jadwalSelect" class="jadwal-select">
+                                    <option value="">Pilih Jadwal</option>
+                                    <option value="1">Senin, 15 Juli 2024 - 08:00 WIB</option>
+                                    <option value="2">Selasa, 16 Juli 2024 - 10:00 WIB</option>
+                                    <option value="3">Rabu, 17 Juli 2024 - 13:00 WIB</option>
+                                    <option value="4">Kamis, 18 Juli 2024 - 15:00 WIB</option>
+                                </select>
+                                <span class="select-arrow">📅</span>
+                            </div>
+
+                            <button type="submit" class="submit-btn">SUBMIT</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/mahasiswa/js/revisi.js"></script>
+</body>
+</html>

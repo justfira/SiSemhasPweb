@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - SISemhas</title>
+    
+    <link rel="stylesheet" href="/dosen/CSS/listmhs.css">
+    <link rel="stylesheet" href="/dosen/CSS/riwayatseminar.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="/dosen/IMG/logo-unand.png" alt="Logo Universitas Andalas" class="logo">
+            <h1 class="header-title">SISemhas - Universitas Andalas</h1>
+        </div>
+    </header>
+
+    <nav class="top-nav">
+        <ul>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/dosen/mahasiswaseminar">List Mahasiswa Seminar</a></li>
+            <li><a href="/dosen/penilaian">Penilaian</a></li>
+            <li><a href="/dosen/riwayatseminar" class="active">Riwayat Seminar</a></li>
+            <li><a href="/dosen/schedule">Upload Jadwal</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <div class="content-header">
+            Riwayat Seminar Hasil
+        </div>
+
+        <div class="table-container">
+            <table id="riwayatSeminarTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>NIM</th>
+                        <th>Nama Mahasiswa</th>
+                        <th>Judul Penelitian</th>
+                        <th>Status</th>
+                        <th>Tanggal Seminar</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="updateModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="modal-title">Update Status Seminar</h3>
+            <form id="updateForm">
+                <div class="form-group">
+                    <label for="statusSelect">Status</label>
+                    <select id="statusSelect">
+                        <option value="">Pilih Status</option>
+                        <option value="LULUS">Lulus</option>
+                        <option value="REVISI">Revisi</option>
+                        <option value="TIDAK LULUS">Tidak Lulus</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="catatanText">Catatan (Opsional)</label>
+                    <textarea id="catatanText" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" onclick="closeModal()" class="btn-cancel">Batal</button>
+                    <button type="submit" class="btn-save">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Universitas Andalas - Sistem Informasi Seminar Hasil</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <script src="/dosen/JS/riwayatseminar.js"></script>
+</body>
+</html>

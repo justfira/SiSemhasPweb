@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rekapitulasi Seminar</title>
+        <link rel="stylesheet" href="/stylesheets/output.css" />
+        <style>
+            @import url(https://fonts.googleapis.com/css2?family=Lato&display=swap);
+            @import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);
+            @import url(https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200);
+        </style>
+    </head>
+    <body>
+        <div id="webcrumbs">
+            <div class="w-[1200px] p-8 bg-gray-50 min-h-screen">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-primary-100 p-3 rounded-full">
+                                <span class="material-symbols-outlined text-primary-600 text-2xl">summarize</span>
+                            </div>
+                            <div>
+                                <h1 class="text-3xl font-bold text-gray-900">Rekapitulasi Seminar</h1>
+                                <p class="text-gray-600 mt-1">Kelola dan ekspor laporan jadwal seminar departemen</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button
+                                class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-all duration-200 hover:scale-105 shadow-lg"
+                            >
+                                <span class="material-symbols-outlined">picture_as_pdf</span>
+                                <span class="font-semibold">Export PDF</span>
+                            </button>
+                            <button
+                                class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-all duration-200 hover:scale-105 shadow-lg"
+                            >
+                                <span class="material-symbols-outlined">refresh</span>
+                                <span class="font-semibold">Refresh Data</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div
+                            class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white transform hover:scale-105 transition-all duration-200"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-blue-100 text-sm font-medium">Total Seminar</p>
+                                    <p class="text-3xl font-bold mt-2">24</p>
+                                </div>
+                                <span class="material-symbols-outlined text-4xl text-blue-200">event</span>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white transform hover:scale-105 transition-all duration-200"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-green-100 text-sm font-medium">Selesai</p>
+                                    <p class="text-3xl font-bold mt-2">18</p>
+                                </div>
+                                <span class="material-symbols-outlined text-4xl text-green-200">check_circle</span>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl p-6 text-white transform hover:scale-105 transition-all duration-200"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-yellow-100 text-sm font-medium">Berlangsung</p>
+                                    <p class="text-3xl font-bold mt-2">3</p>
+                                </div>
+                                <span class="material-symbols-outlined text-4xl text-yellow-200">schedule</span>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white transform hover:scale-105 transition-all duration-200"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-purple-100 text-sm font-medium">Dijadwalkan</p>
+                                    <p class="text-3xl font-bold mt-2">3</p>
+                                </div>
+                                <span class="material-symbols-outlined text-4xl text-purple-200">upcoming</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-sm mb-8">
+                        <div class="p-6 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-4">Filter Periode</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Mulai</label>
+                                    <input
+                                        type="date"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+                                        value="2024-01-01"
+                                    />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Akhir</label>
+                                    <input
+                                        type="date"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+                                        value="2024-12-31"
+                                    />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                    <select
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+                                    >
+                                        <option>Semua Status</option>
+                                        <option>Selesai</option>
+                                        <option>Berlangsung</option>
+                                        <option>Dijadwalkan</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Kategori</label>
+                                    <select
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+                                    >
+                                        <option>Semua Kategori</option>
+                                        <option>Akademik</option>
+                                        <option>Penelitian</option>
+                                        <option>Pengabdian</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-end">
+                                    <button
+                                        class="w-full bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-all duration-200 hover:scale-105"
+                                    >
+                                        <span class="material-symbols-outlined">search</span> <span>Filter</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                        <div class="p-6 border-b border-gray-200">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-xl font-semibold text-gray-900">Daftar Seminar</h2>
+                                <div class="flex items-center space-x-3">
+                                    <div class="relative">
+                                        <span
+                                            class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                                            >search</span
+                                        >
+                                        <input
+                                            type="text"
+                                            placeholder="Cari seminar..."
+                                            class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            No
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Judul Seminar
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Pembicara
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Tanggal
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Waktu
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Lokasi
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Peserta
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                Teknologi AI dalam Pendidikan
+                                            </div>
+                                            <div class="text-sm text-gray-500">Kategori: Akademik</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center"
+                                                >
+                                                    <span class="text-primary-600 font-medium text-sm">DR</span>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <div class="text-sm font-medium text-gray-900">Dr. Rahman</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">15 Nov 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">09:00 - 11:00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Aula Utama</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">45 orang</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                                            >
+                                                Selesai
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                Metodologi Penelitian Kualitatif
+                                            </div>
+                                            <div class="text-sm text-gray-500">Kategori: Penelitian</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center"
+                                                >
+                                                    <span class="text-primary-600 font-medium text-sm">PS</span>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <div class="text-sm font-medium text-gray-900">Prof. Sari</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20 Nov 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">13:00 - 15:00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Lab Komputer</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">32 orang</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800"
+                                            >
+                                                Berlangsung
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">3</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                Pengabdian Masyarakat Digital
+                                            </div>
+                                            <div class="text-sm text-gray-500">Kategori: Pengabdian</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center"
+                                                >
+                                                    <span class="text-primary-600 font-medium text-sm">MA</span>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <div class="text-sm font-medium text-gray-900">Dr. Maya</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">25 Nov 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10:00 - 12:00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Ruang Seminar</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">28 orang</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
+                                            >
+                                                Dijadwalkan
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">4</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                Inovasi Teknologi Pembelajaran
+                                            </div>
+                                            <div class="text-sm text-gray-500">Kategori: Akademik</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center"
+                                                >
+                                                    <span class="text-primary-600 font-medium text-sm">AB</span>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <div class="text-sm font-medium text-gray-900">Dr. Andi</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">30 Nov 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">14:00 - 16:00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Aula Utama</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">52 orang</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
+                                            >
+                                                Dijadwalkan
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">5</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                Strategi Publikasi Ilmiah
+                                            </div>
+                                            <div class="text-sm text-gray-500">Kategori: Penelitian</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center"
+                                                >
+                                                    <span class="text-primary-600 font-medium text-sm">LI</span>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <div class="text-sm font-medium text-gray-900">Prof. Lina</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">05 Des 2024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">09:30 - 11:30</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Ruang Diskusi</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">38 orang</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
+                                            >
+                                                Dijadwalkan
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm text-gray-700">
+                                    Menampilkan <span class="font-medium">1</span> sampai
+                                    <span class="font-medium">5</span> dari <span class="font-medium">24</span> hasil
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button
+                                        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-all duration-200"
+                                    >
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="px-3 py-2 text-sm bg-primary-600 text-white rounded-md">1</button>
+                                    <button
+                                        class="px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-all duration-200"
+                                    >
+                                        2
+                                    </button>
+                                    <button
+                                        class="px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-all duration-200"
+                                    >
+                                        3
+                                    </button>
+                                    <button
+                                        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-all duration-200"
+                                    >
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-xl">
+                        <div class="flex items-start space-x-3">
+                            <span class="material-symbols-outlined text-blue-600 mt-1">info</span>
+                            <div>
+                                <h3 class="font-semibold text-blue-900 mb-1">Informasi Export PDF</h3>
+                                <p class="text-blue-800 text-sm leading-relaxed">
+                                    Rekapitulasi akan mencakup semua data seminar sesuai filter yang dipilih, termasuk
+                                    detail pembicara, peserta, dan statistik kehadiran. Format PDF akan dioptimalkan
+                                    untuk pencetakan dan arsip dokumentasi departemen.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                content: ["./src/**/*.{html,js}"],
+                theme: {
+                    name: "Bluewave",
+                    fontFamily: {
+                        sans: [
+                            "Open Sans",
+                            "ui-sans-serif",
+                            "system-ui",
+                            "sans-serif",
+                            '"Apple Color Emoji"',
+                            '"Segoe UI Emoji"',
+                            '"Segoe UI Symbol"',
+                            '"Noto Color Emoji"'
+                        ]
+                    },
+                    extend: {
+                        fontFamily: {
+                            title: [
+                                "Lato",
+                                "ui-sans-serif",
+                                "system-ui",
+                                "sans-serif",
+                                '"Apple Color Emoji"',
+                                '"Segoe UI Emoji"',
+                                '"Segoe UI Symbol"',
+                                '"Noto Color Emoji"'
+                            ],
+                            body: [
+                                "Open Sans",
+                                "ui-sans-serif",
+                                "system-ui",
+                                "sans-serif",
+                                '"Apple Color Emoji"',
+                                '"Segoe UI Emoji"',
+                                '"Segoe UI Symbol"',
+                                '"Noto Color Emoji"'
+                            ]
+                        },
+                        colors: {
+                            neutral: {
+                                50: "#f7f7f7",
+                                100: "#eeeeee",
+                                200: "#e0e0e0",
+                                300: "#cacaca",
+                                400: "#b1b1b1",
+                                500: "#999999",
+                                600: "#7f7f7f",
+                                700: "#676767",
+                                800: "#545454",
+                                900: "#464646",
+                                950: "#282828"
+                            },
+                            primary: {
+                                50: "#f3f1ff",
+                                100: "#e9e5ff",
+                                200: "#d5cfff",
+                                300: "#b7a9ff",
+                                400: "#9478ff",
+                                500: "#7341ff",
+                                600: "#631bff",
+                                700: "#611bf8",
+                                800: "#4607d0",
+                                900: "#3c08aa",
+                                950: "#220174",
+                                DEFAULT: "#611bf8"
+                            }
+                        }
+                    },
+                    fontSize: {
+                        xs: ["12px", {lineHeight: "19.200000000000003px"}],
+                        sm: ["14px", {lineHeight: "21px"}],
+                        base: ["16px", {lineHeight: "25.6px"}],
+                        lg: ["18px", {lineHeight: "27px"}],
+                        xl: ["20px", {lineHeight: "28px"}],
+                        "2xl": ["24px", {lineHeight: "31.200000000000003px"}],
+                        "3xl": ["30px", {lineHeight: "36px"}],
+                        "4xl": ["36px", {lineHeight: "41.4px"}],
+                        "5xl": ["48px", {lineHeight: "52.800000000000004px"}],
+                        "6xl": ["60px", {lineHeight: "66px"}],
+                        "7xl": ["72px", {lineHeight: "75.60000000000001px"}],
+                        "8xl": ["96px", {lineHeight: "100.80000000000001px"}],
+                        "9xl": ["128px", {lineHeight: "134.4px"}]
+                    },
+                    borderRadius: {
+                        none: "0px",
+                        sm: "6px",
+                        DEFAULT: "12px",
+                        md: "18px",
+                        lg: "24px",
+                        xl: "36px",
+                        "2xl": "48px",
+                        "3xl": "72px",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        0: "0px",
+                        1: "4px",
+                        2: "8px",
+                        3: "12px",
+                        4: "16px",
+                        5: "20px",
+                        6: "24px",
+                        7: "28px",
+                        8: "32px",
+                        9: "36px",
+                        10: "40px",
+                        11: "44px",
+                        12: "48px",
+                        14: "56px",
+                        16: "64px",
+                        20: "80px",
+                        24: "96px",
+                        28: "112px",
+                        32: "128px",
+                        36: "144px",
+                        40: "160px",
+                        44: "176px",
+                        48: "192px",
+                        52: "208px",
+                        56: "224px",
+                        60: "240px",
+                        64: "256px",
+                        72: "288px",
+                        80: "320px",
+                        96: "384px",
+                        px: "1px",
+                        0.5: "2px",
+                        1.5: "6px",
+                        2.5: "10px",
+                        3.5: "14px"
+                    }
+                },
+                plugins: [],
+                important: "#webcrumbs"
+            }
+        </script>
+    </body>
+</html>

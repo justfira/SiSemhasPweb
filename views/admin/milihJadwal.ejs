@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/admin/css/melihatjadwal.css">
+</head>
+<body>
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas" />
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+      
+    </header>
+    
+  <div class="container">
+    <h1><%= title %></h1>
+
+    
+
+    <!-- Tabel Daftar Mahasiswa -->
+    <section id="mahasiswa-container">
+      <h2>Daftar Mahasiswa yang Sudah Mengisi Laporan</h2>
+      <table id="mahasiswa-table">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Judul Laporan</th>
+            <th>Bidang</th>
+            <th>Status Jadwal</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% mahasiswa.forEach(function(m) { %>
+            <tr>
+              <td><%= m.nama_lengkap %></td>
+              <td><%= m.judul %></td>
+              <td><%= m.bidang_penelitian %></td>
+              <td>
+                <% if (m.sudah_dijadwalkan) { %>
+                  <span class="status-terjadwal">Terjadwal</span>
+                  <div class="jadwal-info">
+                    <strong>Dosen:</strong> <%= m.jadwal_info.dosen_penguji %><br>
+                    <strong>Tanggal:</strong> <%= new Date(m.jadwal_info.tanggal_semhas).toLocaleDateString('id-ID') %><br>
+                    <strong>Jam:</strong> <%= m.jadwal_info.jadwal_semhas %>
+                  </div>
+                <% } else { %>
+                  <span style="color: #e74c3c;">Belum Dijadwalkan</span>
+                <% } %>
+              </td>
+              <td>
+                <% if (m.sudah_dijadwalkan) { %>
+                  <button class="btn-edit" onclick="openModal('<%= m.id_pendaftaran %>', true)">Edit Jadwal</button>
+                <% } else { %>
+                  <button class="btn-pilih" onclick="openModal('<%= m.id_pendaftaran %>', false)">Pilih Jadwal</button>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Modal untuk Memilih Jadwal -->
+    <div id="jadwalModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modal-title">Pilih Jadwal Dosen</h2>
+
+        <!-- Dropdown Pilih Dosen Penguji -->
+        <label for="dosen">Pilih Dosen Penguji:</label>
+        <select id="dosen" name="dosen">
+          <option value="">-- Pilih Dosen --</option>
+        </select>
+
+        <!-- Dropdown Pilih Tanggal -->
+        <label for="tanggal">Pilih Tanggal:</label>
+        <select id="tanggal" name="tanggal">
+          <option value="">-- Pilih Tanggal --</option>
+        </select>
+
+        <!-- Tampilkan status shift -->
+        <div id="shift-status" style="display: none;">
+          <p><strong>Status Shift:</strong></p>
+          <p id="shift1-status">Shift 1 (08:00 - 10:00): </p>
+          <p id="shift2-status">Shift 2 (10:00 - 12:00): </p>
+          <p id="shift3-status">Shift 3 (12:00 - 15:00): </p>
+          <p id="shift4-status">Shift 4 (15:00 - 17:00): </p>
+        </div>
+
+        <!-- Dropdown Pilih Shift -->
+        <label for="shift">Pilih Shift:</label>
+        <select id="shift" name="shift">
+          <option value="">-- Pilih Shift --</option>
+        </select>
+
+        <button id="submit-jadwal">Tentukan Jadwal</button>
+      </div>
+    </div>
+
+    <a href="/admin/daftar-role-user">
+            <button class="navigate-button">Kembali</button>
+    </a>
+
+  <script>
+    let currentJadwalId = null;
+    let isEditMode = false;
+
+    // Fungsi untuk membuka modal dan memilih jadwal
+    function openModal(mahasiswaId, editMode = false) {
+      const modal = document.getElementById("jadwalModal");
+      const closeBtn = document.querySelector(".close");
+      const modalTitle = document.getElementById("modal-title");
+      const submitButton = document.getElementById("submit-jadwal");
+
+      isEditMode = editMode;
+
+      // Update title dan button text berdasarkan mode
+      if (editMode) {
+        modalTitle.textContent = "Edit Jadwal Dosen";
+        submitButton.textContent = "Update Jadwal";
+      } else {
+        modalTitle.textContent = "Pilih Jadwal Dosen";
+        submitButton.textContent = "Tentukan Jadwal";
+      }
+
+      // Reset form
+      document.getElementById("dosen").selectedIndex = 0;
+      document.getElementById("tanggal").innerHTML = '<option value="">-- Pilih Tanggal --</option>';
+      document.getElementById("shift").innerHTML = '<option value="">-- Pilih Shift --</option>';
+      document.getElementById("shift-status").style.display = "none";
+
+      // Menyimpan ID mahasiswa yang dipilih dalam modal
+      document.getElementById("submit-jadwal").dataset.mahasiswaId = mahasiswaId;
+
+      // Menampilkan modal
+      modal.style.display = "block";
+
+      // Menutup modal
+      closeBtn.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      // Menutup modal jika pengguna klik di luar modal
+      window.onclick = function(event) {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      }
+
+      // Fetch dosen untuk dropdown
+      fetchDosen();
+    }
+
+    // Fungsi untuk mengambil daftar dosen
+    function fetchDosen() {
+      fetch('/admin/dosen')
+        .then(response => response.json())
+        .then(data => {
+          const dosenSelect = document.getElementById("dosen");
+          dosenSelect.innerHTML = '<option value="">-- Pilih Dosen --</option>';
+
+          if (Array.isArray(data)) {
+            data.forEach(dosen => {
+              const option = document.createElement("option");
+              option.value = dosen.id_user;
+              option.textContent = dosen.nama_dosen;
+              dosenSelect.appendChild(option);
+            });
+          } else {
+            console.error('Data dosen tidak dalam format array:', data);
+          }
+        })
+        .catch(err => console.error('Error fetching dosen:', err));
+    }
+
+    // Event listener untuk perubahan dropdown dosen
+    document.getElementById("dosen").addEventListener('change', function() {
+      const dosenId = this.value;
+      if (dosenId) {
+        fetchTanggal(dosenId);
+      } else {
+        // Reset tanggal dan shift jika tidak ada dosen yang dipilih
+        document.getElementById("tanggal").innerHTML = '<option value="">-- Pilih Tanggal --</option>';
+        document.getElementById("shift").innerHTML = '<option value="">-- Pilih Shift --</option>';
+        document.getElementById("shift-status").style.display = "none";
+      }
+    });
+
+    // Fungsi untuk mengambil tanggal berdasarkan dosen yang dipilih
+    function fetchTanggal(dosenId) {
+      console.log('Fetching tanggal for dosen ID:', dosenId); // Debug log
+      
+      fetch(`/admin/jadwal?dosen=${dosenId}`)
+        .then(response => {
+          console.log('Response status:', response.status); // Debug log
+          return response.json();
+        })
+        .then(data => {
+          console.log('Data received:', data); // Debug log
+          
+          const tanggalSelect = document.getElementById("tanggal");
+          tanggalSelect.innerHTML = '<option value="">-- Pilih Tanggal --</option>';
+
+          if (Array.isArray(data) && data.length > 0) {
+            console.log('Processing', data.length, 'tanggal items'); // Debug log
+            data.forEach(jadwal => {
+              console.log('Processing jadwal:', jadwal); // Debug log
+              const option = document.createElement("option");
+              option.value = jadwal.id_jadwal_dosen;
+              
+              // Coba beberapa format tanggal
+              let tanggalText;
+              try {
+                const date = new Date(jadwal.tanggal_data);
+                tanggalText = date.toLocaleDateString('id-ID');
+              } catch (e) {
+                console.error('Error formatting date:', e);
+                tanggalText = jadwal.tanggal_data; // Fallback ke raw data
+              }
+              
+              option.textContent = tanggalText;
+              tanggalSelect.appendChild(option);
+            });
+          } else {
+            console.log('No data or empty array received'); // Debug log
+            const option = document.createElement("option");
+            option.value = "";
+            option.textContent = "Tidak ada tanggal tersedia";
+            tanggalSelect.appendChild(option);
+          }
+
+          // Reset shift ketika tanggal berubah
+          document.getElementById("shift").innerHTML = '<option value="">-- Pilih Shift --</option>';
+          document.getElementById("shift-status").style.display = "none";
+        })
+        .catch(err => {
+          console.error('Error fetching tanggal:', err);
+          // Tampilkan error di dropdown
+          const tanggalSelect = document.getElementById("tanggal");
+          tanggalSelect.innerHTML = '<option value="">Error loading tanggal</option>';
+        });
+    }
+
+    // Event listener untuk perubahan dropdown tanggal
+    document.getElementById("tanggal").addEventListener('change', function() {
+      const jadwalId = this.value;
+      if (jadwalId) {
+        currentJadwalId = jadwalId;
+        fetchShift(jadwalId);
+      } else {
+        document.getElementById("shift").innerHTML = '<option value="">-- Pilih Shift --</option>';
+        document.getElementById("shift-status").style.display = "none";
+        currentJadwalId = null;
+      }
+    });
+
+    // Fungsi untuk mengambil shift berdasarkan jadwal yang dipilih
+    function fetchShift(jadwalId) {
+      fetch(`/admin/shift?jadwal_id=${jadwalId}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Shift data received:', data); // Debug log
+          
+          const shiftSelect = document.getElementById("shift");
+          shiftSelect.innerHTML = '<option value="">-- Pilih Shift --</option>';
+
+          // Fungsi helper untuk mengecek apakah shift tersedia
+          function isShiftAvailable(shiftValue) {
+            // Shift tersedia jika nilai = "Tersedia", tidak tersedia jika "Kosong" atau null
+            return shiftValue === "Tersedia";
+          }
+
+          // Update status shift dengan logika yang benar
+          const shift1Available = isShiftAvailable(data.shift1);
+          const shift2Available = isShiftAvailable(data.shift2);
+          const shift3Available = isShiftAvailable(data.shift3);
+          const shift4Available = isShiftAvailable(data.shift4);
+
+          document.getElementById("shift1-status").textContent = `Shift 1 (08:00 - 10:00): ${shift1Available ? 'Tersedia' : 'Tidak Tersedia'}`;
+          document.getElementById("shift2-status").textContent = `Shift 2 (10:00 - 12:00): ${shift2Available ? 'Tersedia' : 'Tidak Tersedia'}`;
+          document.getElementById("shift3-status").textContent = `Shift 3 (12:00 - 15:00): ${shift3Available ? 'Tersedia' : 'Tidak Tersedia'}`;
+          document.getElementById("shift4-status").textContent = `Shift 4 (15:00 - 17:00): ${shift4Available ? 'Tersedia' : 'Tidak Tersedia'}`;
+          
+          document.getElementById("shift-status").style.display = "block";
+
+          // Tambahkan shift yang tersedia ke dropdown
+          if (shift1Available) {
+            const option1 = document.createElement("option");
+            option1.value = 'shift1';
+            option1.textContent = 'Shift 1 (08:00 - 10:00)';
+            shiftSelect.appendChild(option1);
+          }
+          if (shift2Available) {
+            const option2 = document.createElement("option");
+            option2.value = 'shift2';
+            option2.textContent = 'Shift 2 (10:00 - 12:00)';
+            shiftSelect.appendChild(option2);
+          }
+          if (shift3Available) {
+            const option3 = document.createElement("option");
+            option3.value = 'shift3';
+            option3.textContent = 'Shift 3 (12:00 - 15:00)';
+            shiftSelect.appendChild(option3);
+          }
+          if (shift4Available) {
+            const option4 = document.createElement("option");
+            option4.value = 'shift4';
+            option4.textContent = 'Shift 4 (15:00 - 17:00)';
+            shiftSelect.appendChild(option4);
+          }
+        })
+        .catch(err => console.error('Error fetching shift:', err));
+    }
+
+    // Fungsi untuk mengonfirmasi pemilihan jadwal
+    document.getElementById("submit-jadwal").addEventListener("click", function() {
+      const mahasiswaId = this.dataset.mahasiswaId;
+      const shiftId = document.getElementById("shift").value;
+
+      if (!currentJadwalId || !shiftId) {
+        alert("Silakan pilih dosen, tanggal, dan shift terlebih dahulu!");
+        return;
+      }
+
+      const actionText = isEditMode ? "memperbarui" : "menetapkan";
+      
+      fetch(`/admin/set-jadwal`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          mahasiswaId: mahasiswaId, 
+          jadwalId: currentJadwalId,
+          shiftId: shiftId 
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message) {
+            alert(data.message);
+            document.getElementById("jadwalModal").style.display = "none";
+            // Reload halaman untuk menampilkan perubahan
+            location.reload();
+          } else {
+            alert(`Terjadi kesalahan saat ${actionText} jadwal`);
+          }
+        })
+        .catch(err => {
+          console.error('Error setting jadwal:', err);
+          alert(`Terjadi kesalahan saat ${actionText} jadwal`);
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SISemhas - Evaluasi Sistem</title>
+    <link rel="stylesheet" href="/mahasiswa/css/evaluasiSisemhas.css" />
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas">
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+        
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="nav-left">
+            <a href="/dashboard/" class="nav-tab ">Dashboard</a>
+            <a href="/daftar/" class="nav-tab">Pendaftaran</a>
+            <a href="/riwayatseminar" class="nav-tab">Riwayat Semhas</a>
+        </div>
+    </nav>
+        <div class="breadcrumb">
+            <span>Evaluasi Sistem</span>
+        </div>
+
+        <div class="main-content">
+            <form id="evaluationForm" action="/mahasiswa" method="POST">
+                <table class="rating-table">
+                    <thead>
+                        <tr>
+                            <th class="question-header" rowspan="2">Pertanyaan</th>
+                            <th class="rating-header" colspan="5">Rating</th>
+                        </tr>
+                        <tr>
+                            <th class="rating-number">1</th>
+                            <th class="rating-number">2</th>
+                            <th class="rating-number">3</th>
+                            <th class="rating-number">4</th>
+                            <th class="rating-number">5</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="question-row">
+                            <td class="question">Apakah Fiturnya berjalan dengan baik?</td>
+                            <td class="rating-cell"><input type="radio" name="q1" value="1"></td>
+                            <td class="rating-cell"><input type="radio" name="q1" value="2"></td>
+                            <td class="rating-cell"><input type="radio" name="q1" value="3"></td>
+                            <td class="rating-cell"><input type="radio" name="q1" value="4"></td>
+                            <td class="rating-cell"><input type="radio" name="q1" value="5"></td>
+                        </tr>
+                        <tr class="question-row">
+                            <td class="question">Apakah konten yang disediakan relevan, up-to-date, dan bebas kesalahan?</td>
+                            <td class="rating-cell"><input type="radio" name="q2" value="1"></td>
+                            <td class="rating-cell"><input type="radio" name="q2" value="2"></td>
+                            <td class="rating-cell"><input type="radio" name="q2" value="3"></td>
+                            <td class="rating-cell"><input type="radio" name="q2" value="4"></td>
+                            <td class="rating-cell"><input type="radio" name="q2" value="5"></td>
+                        </tr>
+                        <tr class="question-row">
+                            <td class="question">Apakah website bekerja dengan baik di berbagai perangkat dan ukuran layar?</td>
+                            <td class="rating-cell"><input type="radio" name="q3" value="1"></td>
+                            <td class="rating-cell"><input type="radio" name="q3" value="2"></td>
+                            <td class="rating-cell"><input type="radio" name="q3" value="3"></td>
+                            <td class="rating-cell"><input type="radio" name="q3" value="4"></td>
+                            <td class="rating-cell"><input type="radio" name="q3" value="5"></td>
+                        </tr>
+                        <tr class="question-row">
+                            <td class="question">Apakah website mudah digunakan dan dipahami oleh pengguna?</td>
+                            <td class="rating-cell"><input type="radio" name="q4" value="1"></td>
+                            <td class="rating-cell"><input type="radio" name="q4" value="2"></td>
+                            <td class="rating-cell"><input type="radio" name="q4" value="3"></td>
+                            <td class="rating-cell"><input type="radio" name="q4" value="4"></td>
+                            <td class="rating-cell"><input type="radio" name="q4" value="5"></td>
+                        </tr>
+                        <tr class="question-row">
+                            <td class="question">Apakah dokumentasi teknis tersedia dan jelas?</td>
+                            <td class="rating-cell"><input type="radio" name="q5" value="1"></td>
+                            <td class="rating-cell"><input type="radio" name="q5" value="2"></td>
+                            <td class="rating-cell"><input type="radio" name="q5" value="3"></td>
+                            <td class="rating-cell"><input type="radio" name="q5" value="4"></td>
+                            <td class="rating-cell"><input type="radio" name="q5" value="5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="rating-explanation">
+                    <h4>Penjelasan Skor:</h4>
+                    <ul>
+                        <li><strong>1:</strong> Sangat buruk / tidak sesuai harapan</li>
+                        <li><strong>2:</strong> Buruk / banyak kekurangan</li>
+                        <li><strong>3:</strong> Cukup / sesuai standar minimum</li>
+                        <li><strong>4:</strong> Baik / sesuai harapan</li>
+                        <li><strong>5:</strong> Sangat baik / melebihi harapan</li>
+                    </ul>
+                </div>
+
+                <div class="comment-section">
+                    <div class="comment-left">
+                        <label for="saran" class="comment-label">Saran</label>
+                        <textarea id="saran" name="saran" placeholder="Masukkan saran Anda..."></textarea>
+                    </div>
+                    <div class="comment-right">
+                        <label for="kritik" class="comment-label">Kritik</label>
+                        <textarea id="kritik" name="kritik" placeholder="Masukkan kritik Anda..."></textarea>
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/mahasiswa/js/evaluasiSisemhas.js"></script>
+</body>
+</html>

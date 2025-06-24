@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dosen/CSS/penilaian.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>SISemhas - Universitas Andalas</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
+
+</head>
+<body>
+
+     <!-- <div id="printReportContent" class="print-only">
+        </div> -->
+    <header class="header">
+        <div class="header-left">
+            <img src="/dosen/IMG/logo-unand.png" alt="Logo Universitas Andalas" class="logo">
+            <h1 class="header-title">SISemhas - Universitas Andalas</h1>
+        </div>
+    </header>
+
+    <nav class="top-nav">
+        <ul>
+            <li><a href="/dashboard/" >Dashboard</a></li>
+            <li><a href="/dosen/mahasiswaseminar">List Mahasiswa Seminar</a></li>
+            <li><a href="/dosen/penilaian" class="active" >Penilaian</a></li>
+            <li><a href="/dosen/riwayatseminar">Riwayat Seminar</a></li>
+            <li><a href="/dosen/schedule">Upload Jadwal</a></li>
+        </ul>
+    </nav>
+
+
+<main class="content-container">
+    <input type="hidden" id="loggedInDosenNama" value="<%= user.nama_lengkap %>">
+    <input type="hidden" id="loggedInDosenId" value="<%= user.userId %>">
+
+    <div class="content-header">
+        Penilaian Seminar Hasil
+    </div>
+
+    <div class="form-group">
+        <label for="studentSelect">Pilih Nama Mahasiswa</label>
+        <select id="studentSelect" class="student-dropdown">
+            <option value="">-- Pilih Mahasiswa --</option>
+            <% if (typeof mahasiswas !== 'undefined' && mahasiswas.length > 0) { %>
+                <% mahasiswas.forEach(function(mhs) { %>
+                    <option 
+                        value="<%= mhs.id_user %>" 
+                        data-id-pendaftaran="<%= mhs.id_pendaftaran %>"
+                        data-is-dinilai="<%= mhs.isDinilai %>"
+                        data-judul-penelitian="<%= mhs.judul %>"
+                    >
+                        <%= mhs.nama_lengkap %> (<%= mhs.id_pendaftaran %>) 
+                        <% if (mhs.isDinilai) { %> (Sudah Dinilai) <% } %>
+                    </option>
+                <% }); %>
+            <% } else { %>
+                <option value="" disabled>Tidak ada mahasiswa yang perlu dinilai</option>
+            <% } %>
+        </select>
+    </div>
+
+    <form id="assessmentForm" class="web-display-form">
+        <div class="form-columns">
+            <div class="form-column left-column">
+                <% if (typeof penilaian !== 'undefined' && penilaian.length > 0) { %>
+                    <% penilaian.forEach(function(item) { %>
+                        <div class="form-group">
+                            <label id="label-<%= item.id %>"><%= item.nama %> (<%= item.bobot * 100 %>%)</label> 
+                            <input
+                                type="number"
+                                class="score-input"
+                                data-kategori-id="<%= item.id %>"
+                                data-weight="<%= item.bobot %>"
+                                min="0" max="100" step="0.01" required
+                            >
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>Tidak ada kriteria penilaian yang tersedia.</p>
+                <% } %>
+                <div class="form-group">
+                    <label>Nilai Akhir:</label>
+                    <span id="finalScore">0.00</span>
+                </div>
+            </div>
+
+            <div class="form-column right-column">
+                <div class="form-group">
+                    <label for="statusSemhas">Status Seminar Hasil:</label>
+                    <select id="statusSemhas" name="status_semhas" class="student-dropdown" required>
+                        <option value="">-- Pilih Status --</option>
+                        <option value="LULUS">LULUS</option>
+                        <option value="TIDAK LULUS">TIDAK LULUS</option>
+                        <option value="REVISI">REVISI</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="komentar">Komentar Dosen:</label>
+                    <textarea id="komentar" name="komentar" rows="5" class="student-dropdown"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Kirim Penilaian</button>
+            <button type="button" class="btn-revise" disabled>Revisi</button>
+            <button type="button" class="btn-print" disabled>Cetak</button>
+        </div>
+    </form>
+
+
+    <div id="printReportContent" class="print-only">
+        <h2 class="print-report-title">LAPORAN PENILAIAN SEMINAR HASIL</h2>
+        <div class="print-info-block">
+            <p class="print-info-item">Nama Mahasiswa: <span id="printStudentNamePlaceholder"></span></p>
+            <p class="print-info-item">ID Mahasiswa: <span id="printStudentIdPlaceholder"></span></p>
+            <p class="print-info-item">Nama Dosen Penguji: <span id="printDosenNamePlaceholder"></span></p>
+            <p class="print-info-item">ID Dosen Penguji: <span id="printDosenIdPlaceholder"></span></p>
+            <p class="print-info-item">Judul Penelitian: <span id="printJudulPenelitianPlaceholder"></span></p>
+            <p class="print-info-item print-report-date">Tanggal Cetak: <span id="printDatePlaceholder"></span></p>
+        </div>
+
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th class="table-header-left">KRITERIA PENILAIAN</th>
+                    <th class="table-header-center">BOBOT</th>
+                    <th class="table-header-center">NILAI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (typeof penilaian !== 'undefined' && penilaian.length > 0) { %>
+                    <% penilaian.forEach(function(item, index) { %>
+                        <tr class="criteria-row">
+                            <td class="criteria-label" id="print-criteria-<%= item.id %>" data-criteria-name="<%= item.nama %>">
+                                <%= index + 1 %>. <%= item.nama %>
+                            </td>
+                            <td class="criteria-weight" id="print-weight-<%= item.id %>" data-criteria-weight="(<%= item.bobot * 100 %>%)">
+                                <%= item.bobot * 100 %>%
+                            </td>
+                            <td class="score-cell" id="print-score-<%= item.id %>">
+                                </td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr><td colspan="3">Tidak ada kriteria penilaian yang tersedia.</td></tr>
+                <% } %>
+                <tr class="total-score-row">
+                    <td colspan="2" class="total-label">Nilai Akhir:</td>
+                    <td class="final-score-cell" id="print-final-score-cell">
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="print-status-comment-block">
+            <p class="print-status-item">Status Seminar Hasil: <span id="printStatusPlaceholder"></span></p>
+            <p class="print-comment-item">Komentar Dosen: <span id="printKomentarPlaceholder"></span></p>
+        </div>
+
+
+        <div class="signature-area">
+            <p class="signature-line">Padang, <span id="printCityDatePlaceholder"></span></p>
+            <p class="signature-line">Dosen Penguji,</p>
+            <br><br><br>
+            <p class="signature-line">(<span id="printDosenSignatureName"></span>)</p>
+            <p class="signature-line">NIP. <span id="printDosenSignatureId"></span></p>
+        </div>
+    </div>
+
+</main>
+
+<script src="/dosen/JS/penilaian.js"></script>
+</body>
+</html>

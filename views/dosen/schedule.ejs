@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= typeof csrf_token !== 'undefined' ? csrf_token : '' %>"> 
+    <title><%= typeof title !== 'undefined' ? title : 'Upload Jadwal' %> - SISemhas</title> 
+    
+    <link rel="stylesheet" href="/dosen/css/listmhs.css">
+    <link rel="stylesheet" href="/dosen/css/riwayatseminar.css">
+    <link rel="stylesheet" href="/dosen/css/schedule.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="/dosen/IMG/logo-unand.png" alt="Logo Universitas Andalas" class="logo">
+            <h1 class="header-title">SISemhas - Universitas Andalas</h1>
+        </div>
+    </header>
+
+    <nav class="top-nav">
+        <ul>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/dosen/mahasiswaseminar">List Mahasiswa Seminar</a></li>
+            <li><a href="/dosen/penilaian">Penilaian</a></li>
+            <li><a href="/dosen/riwayatseminar">Riwayat Seminar</a></li>
+            <li><a href="/dosen/schedule" class="active">Upload Jadwal</a></li>
+        </ul>
+    </nav>
+
+    <div class="container"> 
+        <div class="upload-header">
+            <h2>Upload Jadwal</h2>
+        </div>
+
+        <div class="main-content">
+            <div id="month-selection" class="view active">
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="year-select">Tahun</label>
+                        <select id="year-select">
+                            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bulan</label>
+                        <div class="month-grid" id="month-buttons">
+                            <button class="month-btn" data-month="0">Januari</button>
+                            <button class="month-btn" data-month="1">Februari</button>
+                            <button class="month-btn" data-month="2">Maret</button>
+                            <button class="month-btn" data-month="3">April</button>
+                            <button class="month-btn" data-month="4">Mei</button>
+                            <button class="month-btn" data-month="5">Juni</button>
+                            <button class="month-btn" data-month="6">Juli</button>
+                            <button class="month-btn" data-month="7">Agustus</button>
+                            <button class="month-btn" data-month="8">September</button>
+                            <button class="month-btn" data-month="9">Oktober</button>
+                            <button class="month-btn" data-month="10">November</button>
+                            <button class="month-btn" data-month="11">Desember</button>
+                        </div>
+                        <p class="help-text">* Klik bulan untuk masuk ke kalender detail</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-icon">👥</div>
+                    <div class="info-content">
+                        <h4>Cara Penggunaan:</h4>
+                        <ul>
+                            <li>Pilih tahun yang sesuai dengan jadwal seminar</li>
+                            <li>Klik bulan yang diinginkan untuk masuk ke kalender detail</li>
+                            <li>Hanya bulan dari bulan ini ke depan yang dapat dipilih</li>
+                            <li>Klik tanggal untuk edit jadwal shift pada hari tersebut</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="calendar-view" class="view">
+                <div class="calendar-header">
+                    <button id="back-btn" class="back-btn">← Kembali</button>
+                    <h3 id="calendar-title"></h3> 
+                    <div class="nav-arrows">
+                        <button id="prev-month" class="nav-arrow">‹</button>
+                        <button id="next-month" class="nav-arrow">›</button>
+                    </div>
+                </div>
+
+                <div class="calendar-container">
+                    <div class="calendar-days-header">
+                        <div class="day-header">Min</div>
+                        <div class="day-header">Sen</div>
+                        <div class="day-header">Sel</div>
+                        <div class="day-header">Rab</div>
+                        <div class="day-header">Kam</div>
+                        <div class="day-header">Jum</div>
+                        <div class="day-header">Sab</div>
+                    </div>
+                    <div id="calendar-grid" class="calendar-grid">
+                    </div>
+                </div>
+
+                <div class="calendar-legend">
+                    <div class="legend-item">
+                        <div class="legend-color today"></div>
+                        <span>Hari Ini</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color selected"></div>
+                        <span>Dipilih</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color disabled"></div>
+                        <span>Tidak Tersedia</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color has-schedule"></div>
+                        <span>Ada Jadwal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+   <div id="schedule-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modal-title">Edit Jadwal - 11 September 2025</h3>
+            <button class="close-btn" id="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="schedule-form">
+                <div class="shift-container">
+                    <div class="shift-item">
+                        <label for="shift-status-1">Shift 1 (08:00 - 10:00)</label>
+                        <div class="shift-control-group">
+                            <select id="shift-status-1" name="shift1_status" class="shift-status">
+                                <option value="tidak bersedia">Tidak Bersedia</option>
+                                <option value="bersedia">Bersedia</option>
+                            </select>
+                            <input type="text" id="shift-input-1" name="shift1_kegiatan" placeholder="Masukkan kegiatan seminar" class="shift-activity-input" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="shift-item">
+                        <label for="shift-status-2">Shift 2 (10:00 - 12:00)</label>
+                        <div class="shift-control-group">
+                            <select id="shift-status-2" name="shift2_status" class="shift-status">
+                                 <option value="tidak bersedia">Tidak Bersedia</option>
+                                <option value="bersedia">Bersedia</option>
+                            </select>
+                            <input type="text" id="shift-input-2" name="shift2_kegiatan" placeholder="Masukkan kegiatan seminar" class="shift-activity-input" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="shift-item">
+                        <label for="shift-status-3">Shift 3 (13:00 - 15:00)</label>
+                        <div class="shift-control-group">
+                            <select id="shift-status-3" name="shift3_status" class="shift-status">
+                                 <option value="tidak bersedia">Tidak Bersedia</option>
+                                <option value="bersedia">Bersedia</option>
+                            </select>
+                            <input type="text" id="shift-input-3" name="shift3_kegiatan" placeholder="Masukkan kegiatan seminar" class="shift-activity-input" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="shift-item">
+                        <label for="shift-status-4">Shift 4 (15:00 - 17:00)</label>
+                        <div class="shift-control-group">
+                            <select id="shift-status-4" name="shift4_status" class="shift-status">
+                                <option value="tidak bersedia">Tidak Bersedia</option>
+                                <option value="bersedia">Bersedia</option>
+                            </select>
+                            <input type="text" id="shift-input-4" name="shift4_kegiatan" placeholder="Masukkan kegiatan seminar" class="shift-activity-input" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="cancel-btn">Batal</button>
+            <button type="button" class="btn btn-primary" id="save-btn">Simpan Jadwal</button>
+        </div>
+    </div>
+</div>
+
+    <script src="/dosen/js/schedule.js"></script>
+</body>
+</html>

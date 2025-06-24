@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiSemhas - Universitas Andalas</title>
+    <link rel="stylesheet" href="/mahasiswa/css/daftarDosen.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas">
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+            <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+          <div class="nav-left">
+            <a href="/dashboard/" class="nav-tab">Dashboard</a>
+            <a href="/daftar" class="nav-tab">Pendaftaran</a>
+            <a href="/riwayatseminar/" class="nav-tab">Riwayat Semhas</a>
+          </div>
+        </nav>
+
+        <div class="breadcrumb">
+            <span>Daftar Dosen</span>
+        </div>
+  <!-- Main Content -->
+    <main class="main-content">
+        <!-- Table -->
+        <div class="table-container">
+            <table class="dosen-table" id="dosenTable">
+                <thead>
+                    <tr>
+                        <th class="no-col">No</th>
+                        <th class="nama-col">Nama Dosen</th>
+                        <th class="bidang-col">Bidangnya</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (daftarDosen.length === 0) { %>
+                        <tr>
+                        <td colspan="3" style="text-align: center;">Belum ada data dosen</td>
+                        </tr>
+                    <% } else { %>
+                        <% daftarDosen.forEach((dosen, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= dosen.nama_lengkap %></td>
+                            <td><%= dosen.bidang_keahlian %></td>
+                        </tr>
+                        <% }); %>
+                    <% } %>
+                    </tbody>
+    </main>
+</body>
+</html>

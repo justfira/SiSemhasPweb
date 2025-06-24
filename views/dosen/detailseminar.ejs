@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - SISemhas</title>
+
+    <link rel="stylesheet" href="/dosen/CSS/listmhs.css"> 
+    <link rel="stylesheet" href="/dosen/CSS/riwayatseminar.css"> 
+    <link rel="stylesheet" href="/dosen/CSS/detailseminar.css"> 
+    
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="/dosen/IMG/logo-unand.png" alt="Logo Universitas Andalas" class="logo">
+            <h1 class="header-title">SISemhas - Universitas Andalas</h1>
+        </div>
+    </header>
+
+    <nav class="top-nav">
+        <ul>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/dosen/mahasiswaseminar">List Mahasiswa Seminar</a></li>
+            <li><a href="/dosen/penilaian">Penilaian</a></li>
+            <li><a href="/dosen/riwayatseminar" class="active">Riwayat Seminar</a></li>
+            <li><a href="/dosen/schedule">Upload Jadwal</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <div class="content-header">
+            Detail Seminar Hasil
+        </div>
+
+        <div class="container-detail">
+            <div class="detail-section">
+                <h5>Informasi Mahasiswa</h5>
+                <p class="detail-item"><strong>NIM:</strong> <%= seminar.pendaftaran?.user?.id_user || '-' %></p>
+                <p class="detail-item"><strong>Nama Mahasiswa:</strong> <%= seminar.pendaftaran?.user?.nama_lengkap || '-' %></p>
+                <p class="detail-item"><strong>Email Mahasiswa:</strong> <%= seminar.pendaftaran?.user?.email || '-' %></p>
+            </div>
+
+            <div class="detail-section">
+                <h5>Informasi Seminar</h5>
+                <p class="detail-item"><strong>Judul Penelitian:</strong> <%= seminar.pendaftaran?.judul || '-' %></p>
+                <p class="detail-item"><strong>Bidang Penelitian:</strong> <%= seminar.pendaftaran?.bidang_penelitian || '-' %></p>
+                <p class="detail-item"><strong>Dosen Pembimbing:</strong> <%= seminar.pendaftaran?.nama_dosen || '-' %></p>
+                <p class="detail-item">
+                    <strong>Status Seminar:</strong> 
+                    <span class="status-badge status-<%= seminar.status_semhas?.toLowerCase().replace(/\s+/g, '-') || 'baru' %>">
+                        <%= seminar.status_semhas || 'Baru' %>
+                    </span>
+                </p>
+                <p class="detail-item"><strong>Komentar Dosen:</strong> <%= seminar.komentar || '-' %></p>
+            </div>
+
+            <div class="detail-section">
+                <h5>Jadwal Seminar</h5>
+                <% if (seminar.pendaftaran && seminar.pendaftaran.jadwal_pendaftaran && seminar.pendaftaran.jadwal_pendaftaran.length > 0) { %>
+                    <% const jadwal = seminar.pendaftaran.jadwal_pendaftaran[0].jadwal_dosenDosen; %>
+                    <% const kuota = seminar.pendaftaran.jadwal_pendaftaran[0].kuota_semhas; %>
+                    <p class="detail-item"><strong>Tanggal Seminar:</strong> <%= jadwal?.tanggal_data ? jadwal.tanggal_data.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' }) : '-' %></p>
+                    <p class="detail-item"><strong>Waktu Pelaksanaan:</strong> <%= kuota?.minggu ? kuota.minggu.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jakarta' }) : '-' %></p>
+                    <p class="detail-item"><strong>Bidang Keahlian:</strong> <%= jadwal?.bidang_keahlian || '-' %></p>
+                    <p class="detail-item"><strong>Shift Tersedia:</strong> 
+                        <% let shifts = []; %>
+                        <% if (jadwal?.shift1) shifts.push('Shift 1'); %>
+                        <% if (jadwal?.shift2) shifts.push('Shift 2'); %>
+                        <% if (jadwal?.shift3) shifts.push('Shift 3'); %>
+                        <% if (jadwal?.shift4) shifts.push('Shift 4'); %>
+                        <%= shifts.length > 0 ? shifts.join(', ') : '-' %>
+                    </p>
+                <% } else { %>
+                    <p class="detail-item">Jadwal seminar belum tersedia.</p>
+                <% } %>
+            </div>
+
+            <div class="detail-section">
+                <h5>Detail Penilaian Rubik</h5>
+                <% if (seminar.rubik) { %>
+                    <table class="rubik-table">
+                        <thead>
+                            <tr>
+                                <th>Aspek Penilaian</th>
+                                <th>Nilai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pemahaman Materi</td>
+                                <td><%= seminar.rubik.pemahaman || '-' %></td>
+                            </tr>
+                            <tr>
+                                <td>Dokumentasi Laporan</td>
+                                <td><%= seminar.rubik.dokumenasi || '-' %></td>
+                            </tr>
+                            <tr>
+                                <td>Presentasi</td>
+                                <td><%= seminar.rubik.presentasi || '-' %></td>
+                            </tr>
+                            <tr>
+                                <td>Ketepatan Waktu</td>
+                                <td><%= seminar.rubik.ketepatan_waktu || '-' %></td>
+                            </tr>
+                            <tr>
+                                <td>Sikap</td>
+                                <td><%= seminar.rubik.sikap || '-' %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p class="detail-item">Data penilaian rubik belum tersedia.</p>
+                <% } %>
+            </div>
+
+            <div class="detail-section">
+                <h5>Dokumen Terkait</h5>
+                <p class="detail-item"><strong>Laporan Akhir:</strong> 
+                    <% if (seminar.pendaftaran?.nama_laporan) { %>
+                        <a href="/uploads/<%= seminar.pendaftaran.nama_laporan %>" target="_blank" class="file-link"><%= seminar.pendaftaran.nama_laporan %></a>
+                    <% } else { %>
+                        -
+                    <% } %>
+                </p>
+                <p class="detail-item"><strong>KRS:</strong> 
+                    <% if (seminar.pendaftaran?.nama_krs) { %>
+                        <a href="/uploads/<%= seminar.pendaftaran.nama_krs %>" target="_blank" class="file-link"><%= seminar.pendaftaran.nama_krs %></a>
+                    <% } else { %>
+                        -
+                    <% } %>
+                </p>
+                <p class="detail-item"><strong>Lembar Pengesahan:</strong> 
+                    <% if (seminar.pendaftaran?.nama_pengesahan) { %>
+                        <a href="/uploads/<%= seminar.pendaftaran.nama_pengesahan %>" target="_blank" class="file-link"><%= seminar.pendaftaran.nama_pengesahan %></a>
+                    <% } else { %>
+                        -
+                    <% } %>
+                </p>
+                <p class="detail-item"><strong>File PPT:</strong> 
+                    <% if (seminar.pendaftaran?.nama_ppt) { %>
+                        <a href="/uploads/<%= seminar.pendaftaran.nama_ppt %>" target="_blank" class="file-link"><%= seminar.pendaftaran.nama_ppt %></a>
+                    <% } else { %>
+                        -
+                    <% } %>
+                </p>
+            </div>
+
+            <div class="text-center">
+                <a href="/dosen/riwayatseminar" class="btn btn-back">Kembali ke Riwayat Seminar</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

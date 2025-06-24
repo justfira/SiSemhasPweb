@@ -1,0 +1,81 @@
+/* Basic styling for the detail page content */
+body {
+    background-color: #f8f9fa; /* Pastikan ini tidak berkonflik dengan background global Anda */
+}
+.container-detail {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.detail-header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #007bff;
+}
+.detail-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    background-color: #fdfdfe;
+}
+.detail-section h5 {
+    color: #343a40;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+.detail-item strong {
+    color: #495057;
+}
+.rubik-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.rubik-table th, .rubik-table td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: left;
+}
+.rubik-table th {
+    background-color: #e9ecef;
+    font-weight: bold;
+    color: #343a40;
+}
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+/* Re-use status colors from riwayatseminar.css atau definisikan ulang jika Anda menghapus riwayatseminar.css */
+/* Karena detailseminar.ejs tetap melink riwayatseminar.css, ini seharusnya sudah terdefinisi */
+.status-lulus { background-color: #28a745; } /* Hijau */
+.status-tidaklulus { background-color: #dc3545; } /* Merah */
+.status-menunggu { background-color: #ffc107; color: #343a40; } /* Kuning */
+.status-baru { background-color: #17a2b8; } /* Biru muda */
+.btn-back {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+.btn-back:hover {
+    background-color: #5a6268;
+    color: white;
+}
+.file-link {
+    color: #007bff;
+    text-decoration: none;
+}
+.file-link:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Jadwal Semhas - SISemhas</title>
+    <link rel="stylesheet" href="/mahasiswa/CSS/detailJadwal.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="logo" src="/mahasiswa/asset/image/logo.png" alt="Logo Universitas Andalas" />
+        <div class="header-title">SISemhas - Universitas Andalas</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="nav-left">
+            <a href="/dashboard/" class="nav-tab">Dashboard</a>
+            <a href="/daftar/" class="nav-tab">Pendaftaran</a>
+            <a href="/riwayatseminar/" class="nav-tab">Riwayat Semhas</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="jadwal-container">
+        <div class="section">
+            <div class="section-header">
+                <h2>📅 Detail Jadwal Seminar Hasil</h2>
+            </div>
+            
+            <% if (message) { %>
+                <div class="no-data">
+                    <h3>📋 Informasi</h3>
+                    <p><%= message %></p>
+                </div>
+            <% } else if (jadwalList && jadwalList.length > 0) { %>
+                <div class="table-responsive">
+                    <table class="jadwal-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 4%;">No</th>
+                                <th class="mahasiswa-cell">Nama Mahasiswa</th>
+                                <th class="nim-cell">NIM</th>
+                                <th class="judul-cell">Judul Penelitian</th>
+                                <th class="dosen-cell">Dosen Penguji</th>
+                                <th style="min-width: 120px;">Bidang</th>
+                                <th class="tanggal-cell">Tanggal</th>
+                                <th class="jam-cell">Waktu</th>
+                                <th class="status-cell">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% jadwalList.forEach((jadwal, index) => { %>
+                                <tr>
+                                    <td style="text-align: center; font-weight: 700; color: #667eea;"><%= index + 1 %></td>
+                                    <td class="mahasiswa-cell"><%= jadwal.nama_mahasiswa %></td>
+                                    <td class="nim-cell"><%= jadwal.nim %></td>
+                                    <td class="judul-cell">
+                                        <strong><%= jadwal.judul %></strong>
+                                    </td>
+                                    <td class="dosen-cell">
+                                        <%= jadwal.dosen_penguji %>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <% if (jadwal.bidang_penelitian) { %>
+                                            <span class="badge bidang-badge"><%= jadwal.bidang_penelitian %></span>
+                                        <% } else { %>
+                                            <span class="badge">-</span>
+                                        <% } %>
+                                    </td>
+                                    <td class="tanggal-cell">
+                                        <% if (jadwal.tanggal_semhas) { %>
+                                            <strong><%= new Date(jadwal.tanggal_semhas).toLocaleDateString('id-ID', {
+                                                weekday: 'short',
+                                                year: 'numeric',
+                                                month: 'short',
+                                                day: 'numeric'
+                                            }) %></strong>
+                                        <% } else { %>
+                                            <em style="color: #999;">Belum dijadwalkan</em>
+                                        <% } %>
+                                    </td>
+                                    <td class="jam-cell">
+                                        <strong><%= jadwal.jadwal_semhas %></strong>
+                                    </td>
+                                    <td class="status-cell">
+                                        <% 
+                                            let statusClass = 'menunggu';
+                                            let statusText = 'Menunggu';
+                                            
+                                            if (jadwal.status) {
+                                                if (jadwal.status.toLowerCase().includes('lulus')) {
+                                                    statusClass = 'lulus';
+                                                    statusText = jadwal.status;
+                                                } else if (jadwal.status.toLowerCase().includes('revisi')) {
+                                                    statusClass = 'revisi';
+                                                    statusText = jadwal.status;
+                                                } else {
+                                                    statusText = jadwal.status;
+                                                }
+                                            }
+                                        %>
+                                        <span class="status-<%= statusClass %>">
+                                            <%= statusText %>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="info-summary">
+                    <strong>📊 Ringkasan:</strong> 
+                    Total <strong><%= jadwalList.length %></strong> jadwal seminar hasil yang terdaftar
+                    <br>
+                    <small style="color: #666; margin-top: 5px; display: block;">
+                        * Data diperbarui secara real-time berdasarkan pendaftaran seminar hasil
+                    </small>
+                </div>
+                
+            <% } else { %>
+                <div class="no-data">
+                    <h3>📋 Belum Ada Jadwal Tersedia</h3>
+                    <p>Saat ini belum ada jadwal seminar hasil yang telah dijadwalkan.</p>
+                    <p>Jadwal akan muncul setelah proses penjadwalan oleh admin.</p>
+                </div>
+            <% } %>
+        </div>
+    
+    </div>
+</body>
+</html>
