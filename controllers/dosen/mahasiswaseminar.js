@@ -13,7 +13,11 @@ const getListMahasiswa = async (req, res) => {
 
     const pendaftaranList = await prisma.pendaftaran.findMany({
       where: {
-            nama_dosen: namaDosen 
+        jadwal_pendaftaran: {
+          some: {
+            dosen_penguji: namaDosen
+          }
+        }
       },
       include: {
         user: true,
@@ -26,7 +30,7 @@ const getListMahasiswa = async (req, res) => {
     const formattedData = pendaftaranList.map(p => {
       // 1. Cari jadwal yang spesifik untuk dosen yang sedang login
       const jadwalSpesifik = p.jadwal_pendaftaran.find(
-        j => j.nama_dosen === namaDosen
+        j => j.dosen_penguji === namaDosen
       );
 
       // 2. Gunakan jadwalSpesifik itu. Jika tidak ketemu (seharusnya tidak mungkin), gunakan objek kosong.

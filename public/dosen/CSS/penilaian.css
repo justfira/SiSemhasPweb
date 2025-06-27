@@ -139,21 +139,21 @@ body {
 .form-columns {
     display: flex; /* Aktifkan Flexbox */
     flex-wrap: wrap; /* Izinkan wrapping pada layar kecil */
-    gap: 30px; /* Jarak antara kolom */
+    gap: 8px; /* Jarak antara kolom */
     margin-top: 20px; /* Jarak dari dropdown mahasiswa, jika di luar form-columns */
 }
 
 /* Styling untuk Setiap Kolom */
 .form-column {
     flex: 1; /* Setiap kolom mengambil ruang yang sama */
-    min-width: 280px; /* Batasi lebar minimum per kolom agar tidak terlalu menyempit */
+    min-width: 20px; /* Batasi lebar minimum per kolom agar tidak terlalu menyempit */
     /* Contoh: Jika ingin 50/50 dan ada gap 30px: */
     /* flex-basis: calc(50% - 15px); /* 50% lebar dikurangi setengah dari gap */
 }
 
 /* Form Group (Label + Input) */
 .form-group {
-    margin-bottom: 20px; /* Jarak standar antar grup input */
+    margin-bottom: 8px; /* Jarak standar antar grup input */
 }
 
 .form-group label {
@@ -258,7 +258,7 @@ body {
 .form-actions {
     display: flex;
     justify-content: flex-end; /* Tombol rata kanan */
-    gap: 12px; /* Jarak antar tombol */
+    gap: 8px; /* Jarak antar tombol */
     margin-top: 20px; /* PENTING: Mendorong tombol ke bagian bawah kolom kanan */
     
 }

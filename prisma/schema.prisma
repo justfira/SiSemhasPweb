@@ -158,5 +158,6 @@ model jadwal_dosendosen {
   user               user                 @relation(fields: [id_user], references: [id_user])
   jadwal_pendaftaran jadwal_pendaftaran[]
 
+   @@unique([tanggal_data, id_user])
   @@index([id_user], map: "jadwal_dosendosen_id_user_fkey")
 }

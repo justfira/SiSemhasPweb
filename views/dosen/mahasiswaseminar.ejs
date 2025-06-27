@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - SISemhas</title>
-    
     <link rel="stylesheet" href="/dosen/CSS/listmhs.css">
-    <link rel="stylesheet" href="/dosen/CSS/riwayatseminar.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>SISemhas - Universitas Andalas</title>
 </head>
 <body>
     <header class="header">
@@ -19,69 +17,63 @@
 
     <nav class="top-nav">
         <ul>
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/dosen/mahasiswaseminar">List Mahasiswa Seminar</a></li>
-            <li><a href="/dosen/penilaian">Penilaian</a></li>
-            <li><a href="/dosen/riwayatseminar" class="active">Riwayat Seminar</a></li>
-            <li><a href="/dosen/schedule">Upload Jadwal</a></li>
+             <li><a href="/dashboard/" >Dashboard</a></li>
+             <li><a href="/dosen/mahasiswaseminar" class="active" >List Mahasiswa Seminar</a></li>
+             <li><a href="/dosen/penilaian">Penilaian</a></li>
+             <li><a href="/dosen/riwayatseminar">Riwayat Seminar</a></li>
+             <li><a href="/dosen/schedule">Upload Jadwal</a></li>
         </ul>
     </nav>
 
+
     <main class="content-container">
         <div class="content-header">
-            Riwayat Seminar Hasil
+            List Mahasiswa Seminar
         </div>
 
         <div class="table-container">
-            <table id="riwayatSeminarTable" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>NIM</th>
-                        <th>Nama Mahasiswa</th>
-                        <th>Judul Penelitian</th>
-                        <th>Status</th>
-                        <th>Tanggal Seminar</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <% if (typeof errorMessage !== 'undefined') { %>
+                <div class="error-message">
+                    <h3>⚠️ Gagal Memuat Data</h3>
+                    <p><%= errorMessage %></p>
+                </div>
+
+            <% } else if (mahasiswaList && mahasiswaList.length > 0) { %>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>NIM</th>
+                            <th>Nama</th>
+                            <th>Judul</th>
+                            <th>Tanggal</th>
+                            <th>Waktu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% mahasiswaList.forEach((mhs, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= mhs.nim || '-' %></td>
+                                <td><%= mhs.nama || '-' %></td>
+                                <td><%= mhs.judul_seminar || '-' %></td>
+                                <td>
+                                    <%= mhs.tanggal_seminar ? new Date(mhs.tanggal_seminar).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '-' %>
+                                </td>
+                                <td>
+                                    <%= mhs.waktu_mulai || '-' %> - <%= mhs.waktu_selesai || '-' %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+
+            <% } else { %>
+                <div class="no-data">
+                    <p>Belum ada data mahasiswa seminar yang tersedia.</p>
+                </div>
+            <% } %>
         </div>
     </main>
-
-    <div id="updateModal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h3 class="modal-title">Update Status Seminar</h3>
-            <form id="updateForm">
-                <div class="form-group">
-                    <label for="statusSelect">Status</label>
-                    <select id="statusSelect">
-                        <option value="">Pilih Status</option>
-                        <option value="LULUS">Lulus</option>
-                        <option value="REVISI">Revisi</option>
-                        <option value="TIDAK LULUS">Tidak Lulus</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="catatanText">Catatan (Opsional)</label>
-                    <textarea id="catatanText" rows="3"></textarea>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" onclick="closeModal()" class="btn-cancel">Batal</button>
-                    <button type="submit" class="btn-save">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <p>&copy; 2025 Universitas Andalas - Sistem Informasi Seminar Hasil</p>
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
-    <script src="/dosen/JS/riwayatseminar.js"></script>
 </body>
 </html>
