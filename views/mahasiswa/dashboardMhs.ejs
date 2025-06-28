@@ -86,8 +86,8 @@
                         <p id="pendaftaran-error-message" class="error-message" style="display:none;"></p>
                     </div>
 
-                    <a href="">
-                         <button class="menu-btn">Daftar Dosen</button>
+                    <a href="/list">
+                        <button class="menu-btn">Daftar Dosen</button>
                     </a> 
                 </div>
             </section>
@@ -129,7 +129,7 @@
     // Handle Jadwal Dosen button click - Redirect langsung tanpa parameter
     jadwalDosenBtn.addEventListener('click', () => {
         // Redirect ke halaman jadwal dosen untuk melihat semua jadwal
-        window.location.href = '/jadwalDosen';
+        window.location.href = '/daftarDosen';
     });
 
     // Fungsi untuk mengunduh PDF pendaftaran

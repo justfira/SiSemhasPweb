@@ -46,7 +46,7 @@
                         <% daftarDosen.forEach((dosen, index) => { %>
                         <tr>
                             <td><%= index + 1 %></td>
-                            <td><%= dosen.nama_lengkap %></td>
+                            <td><%= dosen.user.nama_lengkap %></td>
                             <td><%= dosen.bidang_keahlian %></td>
                         </tr>
                         <% }); %>
